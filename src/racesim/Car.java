@@ -38,10 +38,10 @@ public class Car {
     
     public void drawPath(Location a, Location b){
         Line segment = new Line();
-        segment.setStartX(prevLocation.getXCoord());
-        segment.setStartY(prevLocation.getYCoord());
-        segment.setEndX(currLocation.getXCoord());
-        segment.setEndY(currLocation.getYCoord());
+        segment.setStartX(prevLocation.getX_coord());
+        segment.setStartY(prevLocation.getY_coord());
+        segment.setEndX(currLocation.getX_coord());
+        segment.setEndY(currLocation.getY_coord());
     }
     
     public int getSpeed() {
