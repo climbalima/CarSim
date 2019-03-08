@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author elizadoering
+ * @author max
  */
 public class RaceSim extends Application {
     
