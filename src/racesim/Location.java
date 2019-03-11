@@ -20,6 +20,7 @@ public class Location {
         this.y_coord = y_coord;
         this.locationVisual = locationVisual;
     }
+    public Location(){}
 
     public ArrayList<Car> getCurCars() {
         return curCars;
@@ -70,19 +71,21 @@ public class Location {
     }
     
     public void addCurCar(Car car){
-        
+        curCars.add(car);
     }
     
     public void addIncomingCar(Car car){
-        
+        incomingCars.add(car);
     }
     
     public void removeIncomingCar(Car car){
-        
+        for(Car c : incomingCars)
+            if (c.equals(car))incomingCars.remove(c);
     }
     
     public void removeCurCar(Car car){
-        
+        for(Car c : curCars)
+            if (c.equals(car))curCars.remove(c);
     }
     @Override
     public String toString() {
