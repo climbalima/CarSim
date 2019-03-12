@@ -10,8 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -21,22 +24,24 @@ public class RaceSim extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        BorderPane layout = new BorderPane();
+        HBox buttons = new HBox();
+        Venue course = new Venue();
         Button btn = new Button();
-        btn.setText("Say 'Hello World'");
+        btn.setText("Start");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                System.out.println("Start");
             }
         });
+        buttons.getChildren().add(btn);
+        layout.setBottom(buttons);
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        Scene scene = new Scene(layout, 600, 500);
         
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Race Sim");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
