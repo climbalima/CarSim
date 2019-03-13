@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+
 
 public class Location {
     
@@ -14,17 +16,22 @@ public class Location {
     private double y_coord;
     private Circle locationVisual;
 
-    public Location(char LocationID, double x_coord, double y_coord, Circle locationVisual) {
+    public Location(char LocationID, double x_coord, double y_coord) {
+        ArrayList<Car> curCars = new ArrayList<Car>();
+        ArrayList<Car> incomingCars = new ArrayList<Car>();
         this.LocationID = LocationID;
         this.x_coord = x_coord;
         this.y_coord = y_coord;
         this.locationVisual = locationVisual;
+        Circle locationVisual = new Circle(x_coord, y_coord,10);
+        locationVisual.setFill(Color.RED);
+        
     }
-    public Location(){}
 
     public ArrayList<Car> getCurCars() {
         return curCars;
     }
+    
 
     public void setCurCars(ArrayList<Car> curCars) {
         this.curCars = curCars;
@@ -79,13 +86,11 @@ public class Location {
     }
     
     public void removeIncomingCar(Car car){
-        for(Car c : incomingCars)
-            if (c.equals(car))incomingCars.remove(c);
+        incomingCars.remove(car);
     }
     
     public void removeCurCar(Car car){
-        for(Car c : curCars)
-            if (c.equals(car))curCars.remove(c);
+        curCars.remove(car);
     }
     
     public double distance(Location l){
@@ -148,3 +153,4 @@ public class Location {
 
 
 }
+
