@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Venue {
     private Rectangle venueVisual;
-    private HashMap<String, HashMap<Integer, Integer>> locationMap;
+    //private HashMap<String, HashMap<Integer, Integer>> locationMap;
     private HashMap<Character, Location> locations;
     private ArrayList<Car> cars;
     private static final int NUMCARS = 4;
@@ -17,8 +17,8 @@ public class Venue {
     public Venue(HashMap<Character, Location> locations, ArrayList<Car> cars){
         this.locations = locations;
         this.cars = cars;
-        Random gen = new Random();
-        Location[] paths = new Location[4];
+    //    Random gen = new Random();
+    //    Location[] paths = new Location[4];
     }
     public Venue(){}
 
