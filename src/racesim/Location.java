@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+
 
 public class Location {
     
@@ -14,16 +16,22 @@ public class Location {
     private double y_coord;
     private Circle locationVisual;
 
-    public Location(char LocationID, double x_coord, double y_coord, Circle locationVisual) {
+    public Location(char LocationID, double x_coord, double y_coord) {
+        ArrayList<Car> curCars = new ArrayList<Car>();
+        ArrayList<Car> incomingCars = new ArrayList<Car>();
         this.LocationID = LocationID;
         this.x_coord = x_coord;
         this.y_coord = y_coord;
         this.locationVisual = locationVisual;
+        Circle locationVisual = new Circle(x_coord, y_coord,10);
+        locationVisual.setFill(Color.RED);
+        
     }
 
     public ArrayList<Car> getCurCars() {
         return curCars;
     }
+    
 
     public void setCurCars(ArrayList<Car> curCars) {
         this.curCars = curCars;
@@ -70,20 +78,27 @@ public class Location {
     }
     
     public void addCurCar(Car car){
-        
+        curCars.add(car);
     }
     
     public void addIncomingCar(Car car){
-        
+        incomingCars.add(car);
     }
     
     public void removeIncomingCar(Car car){
-        
+        incomingCars.remove(car);
     }
     
     public void removeCurCar(Car car){
-        
+        curCars.remove(car);
     }
+    
+    public double distance(Location l){
+        double xDist = x_coord-l.getX_coord();
+        double yDist = y_coord-l.getY_coord();
+        return Math.sqrt(yDist*yDist + xDist*xDist);
+    }
+    
     @Override
     public String toString() {
         return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord + ", locationVisual=" + locationVisual + '}';
@@ -138,3 +153,4 @@ public class Location {
 
 
 }
+
