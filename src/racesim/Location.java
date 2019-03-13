@@ -69,6 +69,9 @@ public class Location {
     public void setLocationVisual(Circle locationVisual) {
         this.locationVisual = locationVisual;
     }
+    public void setVisualColor(){
+        
+    }
     
     public void addCurCar(Car car){
         curCars.add(car);

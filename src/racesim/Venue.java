@@ -19,10 +19,9 @@ public class Venue {
         this.cars = cars;
         Random gen = new Random();
         Location[] paths = new Location[4];
-
-
     }
-    
+    public Venue(){}
+
     public Location getLocation(char locationID) {
         return locations.get(locationID);
     }

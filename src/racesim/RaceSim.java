@@ -5,6 +5,7 @@
  */
 package racesim;
 
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,13 +15,14 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  *
  * @author max
  */
 public class RaceSim extends Application {
-    
+    private ArrayList<Color> colors;
     @Override
     public void start(Stage primaryStage) {
         BorderPane layout = new BorderPane();
@@ -46,6 +48,26 @@ public class RaceSim extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    public void buildCar(int i){
+        //create the cars
+        //randomize the speed variable
+        //create car's path randomized
+        //call in for loop in start method
+        //set line color in switch statement
+    }
+    public void buildVenue(){
+        
+    }
+    public void buildLocations(){
+        
+    }
+    public void carVisuals(){
+    
+    }
+    public void checkOver(){
+        
+    }
+    
 
     /**
      * @param args the command line arguments
