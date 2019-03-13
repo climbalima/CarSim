@@ -59,7 +59,31 @@ public class RaceSim extends Application {
         
     }
     public void buildLocations(){
-        
+        double xUpper= 690;double yUpper=590;
+        double loc1x = Math.random()*xUpper;
+        double loc1y = Math.random()*yUpper;
+        locations.set(0, new Location('A',loc1x,loc1y));
+        double loc2x = Math.random()*xUpper;
+        double loc2y = Math.random()*yUpper;
+        if(loc2y==loc1y||loc2x==loc1x){
+            loc2x = Math.random()*xUpper;
+            loc2y = Math.random()*yUpper;
+        }
+        locations.set(1,new Location('B',loc2x,loc2y));
+        double loc3x = Math.random()*xUpper;
+        double loc3y = Math.random()*yUpper;
+        if(loc3y==loc2y||loc3y==loc1y||loc3x==loc2x||loc3x==loc1x){
+            loc3x = Math.random()*xUpper;
+            loc3y = Math.random()*yUpper;
+        }
+        locations.set(2,new Location('C',loc3x,loc3y));
+        double loc4x = Math.random()*xUpper;
+        double loc4y = Math.random()*yUpper;
+        if(loc4y==loc3y||loc4y==loc2y||loc4y==loc1y||loc4x==loc3x||loc4x==loc2x||loc4x==loc1x){
+            loc4y = Math.random()*xUpper;
+            loc4x = Math.random()*yUpper;
+        }
+        locations.set(3,new Location('D',loc4x,loc4y));
     }
     public void carVisuals(){
         ArrayList<Image> carPics = new ArrayList<>();
