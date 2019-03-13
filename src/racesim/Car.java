@@ -3,7 +3,11 @@ package racesim;
 import java.util.Arrays;
 import java.util.Objects;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration; 
+
 public class Car {
 
     private int speed;
@@ -14,26 +18,48 @@ public class Car {
     private Location currLocation;
     private Location currDestination;
     private Location destination;
-    private int startTime;
     private int finishTime;
     private Image carVisual;
     private String carColor;
+    private int currTime;
+    private int stops;
+    private TranslateTransition moving;
+          
 
-    public Car(int speed, int carID, Location[] path, int startTime, String carColor, Image carVisual) {
+    public Car(int speed, int carID, Location[] path, String carColor, Image carVisual) {
         this.speed = speed;
         this.carID = carID;
         this.path = path;
-        this.startTime = startTime;
+        this.currTime = 0;
         this.carColor = carColor;
         this.carVisual = carVisual;
         this.startLocation = path[0];
         this.destination = path[path.length-1];
         this.currLocation = startLocation;
         this.currDestination = path[1];
+        this.stops = 0;
+        this.moving = new TranslateTransition();
     }
 
     public boolean checkWin(){
         return currLocation == path[path.length-1]; 
+    }
+    
+    public void drive(){
+        stops++;
+        setPrevLocation(getCurrLocation());
+        setCurrLocation(getCurrDestination());
+        setCurrDestination(path[stops]);
+        double time = currLocation.distance(prevLocation)/speed;
+        currTime += time;
+        ImageView car = new ImageView();
+        moving.setNode(car);
+        moving.setDuration(Duration.millis(time*1000));
+        moving.setFromX(prevLocation.getX_coord());
+        moving.setToX(currLocation.getX_coord());
+        moving.setFromY(prevLocation.getY_coord());
+        moving.setToY(currLocation.getY_coord());
+        moving.play();
     }
     
     public void drawPath(Location a, Location b){
@@ -76,8 +102,8 @@ public class Car {
         return destination;
     }
 
-    public int getStartTime() {
-        return startTime;
+    public int getCurrTime() {
+        return currTime;
     }
 
     public int getFinishTime() {
@@ -90,6 +116,10 @@ public class Car {
 
     public Image getCarVisual() {
         return carVisual;
+    }
+    
+    public TranslateTransition getMoving(){
+        return moving;
     }
 
     public void setSpeed(int speed) {
@@ -124,8 +154,8 @@ public class Car {
         this.destination = destination;
     }
 
-    public void setStartTime(int startTime) {
-        this.startTime = startTime;
+    public void setCurrTime(int currTime) {
+        this.currTime = currTime;
     }
 
     public void setFinishTime(int finishTime) {
@@ -139,6 +169,10 @@ public class Car {
     public void setCarVisual(Image carVisual) {
         this.carVisual = carVisual;
     }
+    
+    public void setMoving(TranslateTransition moving){
+        this.moving = moving;
+    }
 
     @Override
     public int hashCode() {
@@ -151,7 +185,7 @@ public class Car {
         hash = 89 * hash + Objects.hashCode(this.currLocation);
         hash = 89 * hash + Objects.hashCode(this.currDestination);
         hash = 89 * hash + Objects.hashCode(this.destination);
-        hash = 89 * hash + this.startTime;
+        hash = 89 * hash + this.currTime;
         hash = 89 * hash + this.finishTime;
         hash = 89 * hash + Objects.hashCode(this.carVisual);
         hash = 89 * hash + Objects.hashCode(this.carColor);
@@ -176,7 +210,7 @@ public class Car {
         if (this.carID != other.carID) {
             return false;
         }
-        if (this.startTime != other.startTime) {
+        if (this.currTime != other.currTime) {
             return false;
         }
         if (this.finishTime != other.finishTime) {
@@ -211,7 +245,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" + "speed=" + speed + ", carID=" + carID + ", path=" + path + ", startLocation=" + startLocation + ", prevLocation=" + prevLocation + ", currLocation=" + currLocation + ", currDestination=" + currDestination + ", destination=" + destination + ", startTime=" + startTime + ", finishTime=" + finishTime  + ", carVisual=" + carVisual + ", carColor=" + carColor + '}';
+        return "Car{" + "speed=" + speed + ", carID=" + carID + ", path=" + path + ", startLocation=" + startLocation + ", prevLocation=" + prevLocation + ", currLocation=" + currLocation + ", currDestination=" + currDestination + ", destination=" + destination + ", currTime=" + currTime + ", finishTime=" + finishTime  + ", carVisual=" + carVisual + ", carColor=" + carColor + '}';
     }
     
 }
