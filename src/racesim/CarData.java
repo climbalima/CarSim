@@ -29,9 +29,9 @@ public class CarData extends StackPane {
     private Rectangle carDataVisual;
     private static final int NUMCARS = 4;
     
-    public CarData() {
-        ArrayList<Car> allCars = new ArrayList<Car>();
-        ArrayList<Location> locations = new ArrayList<Location>();
+    public CarData(ArrayList<Car> allCars, ArrayList<Location> locations) {
+        this.allCars = allCars;
+        this.locations = locations;
         Rectangle carDataVisual = new Rectangle(500,500);
         String startData = new String();
         for (Car car: allCars) {
@@ -40,7 +40,13 @@ public class CarData extends StackPane {
             startData += "start location: " + car.getStartLocation() + "\n";
             startData += "next location: " + car.getCurrDestination() + "\n";
         }
+        
+        Text startText = new Text(startData);
+        
+        setAlignment(Pos.CENTER_RIGHT);
+        getChildren().addAll(carDataVisual, startText);
     }
+    
     
     public void updateData() {
         String newData = new String();
@@ -51,12 +57,10 @@ public class CarData extends StackPane {
             newData += "previous location: " + car.getPrevLocation() + "\n";
             newData += "next location: " + car.getCurrDestination() + "\n";
         }
+        
+        Text newText = new Text(newData);
+        getChildren().addAll(carDataVisual, newText);
     }
-    
-    
-    
-    
-    
-    
-    
+
 }
+
