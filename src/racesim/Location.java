@@ -92,6 +92,13 @@ public class Location {
     public void removeCurCar(Car car){
         curCars.remove(car);
     }
+    
+    public double distance(Location l){
+        double xDist = x_coord-l.getX_coord();
+        double yDist = y_coord-l.getY_coord();
+        return Math.sqrt(yDist*yDist + xDist*xDist);
+    }
+    
     @Override
     public String toString() {
         return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord + ", locationVisual=" + locationVisual + '}';
