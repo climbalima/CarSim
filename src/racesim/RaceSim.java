@@ -6,6 +6,7 @@
 package racesim;
 
 import java.util.ArrayList;
+import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,8 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 /**
@@ -23,26 +23,29 @@ import javafx.scene.paint.Color;
  */
 public class RaceSim extends Application {
     private ArrayList<Color> colors;
+    private ArrayList<Car> cars;
+    private ArrayList<Location> locations;
+    private CarData carData;
+    private int length,width;
+    private BorderPane bp;
+    private Button start;
+    private Button reset;
+    
+    public RaceSim(){
+        colors = new ArrayList<Color>();
+        cars = new ArrayList<Car>();
+        locations = new ArrayList<Location>();
+        carData=new CarData(cars,locations);
+        bp=new BorderPane();
+        start=new Button("Start");
+        reset=new Button("Reset");
+    }
     @Override
     public void start(Stage primaryStage) {
-        BorderPane layout = new BorderPane();
-        HBox buttons = new HBox();
-        VBox data = new VBox();
-        Venue course = new Venue();
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
         
-        BorderPane root = new BorderPane();
-        root.setBottom(buttons);
+        Pane root = new Pane();
         
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 1000, 800);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
