@@ -20,6 +20,7 @@ public class Location {
         this.y_coord = y_coord;
         this.locationVisual = locationVisual;
     }
+    public Location(){}
 
     public ArrayList<Car> getCurCars() {
         return curCars;
@@ -70,20 +71,29 @@ public class Location {
     }
     
     public void addCurCar(Car car){
-        
+        curCars.add(car);
     }
     
     public void addIncomingCar(Car car){
-        
+        incomingCars.add(car);
     }
     
     public void removeIncomingCar(Car car){
-        
+        for(Car c : incomingCars)
+            if (c.equals(car))incomingCars.remove(c);
     }
     
     public void removeCurCar(Car car){
-        
+        for(Car c : curCars)
+            if (c.equals(car))curCars.remove(c);
     }
+    
+    public double distance(Location l){
+        double xDist = x_coord-l.getX_coord();
+        double yDist = y_coord-l.getY_coord();
+        return Math.sqrt(yDist*yDist + xDist*xDist);
+    }
+    
     @Override
     public String toString() {
         return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord + ", locationVisual=" + locationVisual + '}';

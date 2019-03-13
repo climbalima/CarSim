@@ -26,6 +26,7 @@ public class RaceSim extends Application {
     public void start(Stage primaryStage) {
         BorderPane layout = new BorderPane();
         HBox buttons = new HBox();
+        VBox data = new VBox();
         Venue course = new Venue();
         Button btn = new Button();
         btn.setText("Start");
@@ -39,6 +40,8 @@ public class RaceSim extends Application {
         buttons.getChildren().add(btn);
         layout.setBottom(buttons);
         
+        BorderPane root = new BorderPane();
+        root.setBottom(buttons);
         Scene scene = new Scene(layout, 600, 500);
         
         primaryStage.setTitle("Race Sim");

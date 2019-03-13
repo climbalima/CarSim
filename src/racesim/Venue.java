@@ -1,49 +1,32 @@
 package racesim;
 
 import javafx.scene.shape.Rectangle;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Random;
 
 public class Venue {
     private Rectangle venueVisual;
-    private HashMap<String, HashMap<Integer, Integer>> cords;
+    private HashMap<Character, Location> locations;
     private ArrayList<Car> cars;
-
-    public Venue(Rectangle venueVisual, HashMap<String, HashMap<Integer, Integer>> cords, ArrayList<Car> cars) {
-        this.venueVisual = venueVisual;
-        this.cords = cords;
+    private static final int NUMCARS = 4;
+    private static final int NUMLOCATIONS = 4;
+    
+    public Venue(HashMap<Character, Location> locations, ArrayList<Car> cars){
+        this.locations = locations;
         this.cars = cars;
+        Random gen = new Random();
+        Location[] paths = new Location[4];
+
+
     }
     
-    public Venue(){
-        
-    }
-
-    public Rectangle getVenueVisual() {
-        return venueVisual;
-    }
-
-    public HashMap<String, HashMap<Integer, Integer>> getCords() {
-        return cords;
-    }
-
-    public ArrayList<Car> getCars() {
-        return cars;
-    }
-
-    public void setVenueVisual(Rectangle venueVisual) {
-        this.venueVisual = venueVisual;
-    }
-
-    public void setCords(HashMap<String, HashMap<Integer, Integer>> cords) {
-        this.cords = cords;
-    }
-
-    public void setCars(ArrayList<Car> cars) {
-        this.cars = cars;
+    public Location getLocation(char locationID) {
+        return locations.get(locationID);
     }
     
-    
-    
-    
+    public Car getCar(int carID){
+        return cars.get(carID);
+    }
 }
