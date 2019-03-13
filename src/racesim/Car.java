@@ -47,6 +47,7 @@ public class Car {
     
     public void drive(){
         stops++;
+        setPrevLocation(getCurrLocation());
         setCurrLocation(getCurrDestination());
         setCurrDestination(path[stops]);
         double time = currLocation.distance(prevLocation)/speed;
@@ -58,6 +59,7 @@ public class Car {
         moving.setToX(currLocation.getX_coord());
         moving.setFromY(prevLocation.getY_coord());
         moving.setToY(currLocation.getY_coord());
+        moving.play();
     }
     
     public void drawPath(Location a, Location b){
