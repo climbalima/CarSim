@@ -94,9 +94,6 @@ public class RaceSim extends Application {
     public void buildCarData(){
         
     }
-    public void animateCars(){
-    
-    }
     public void checkOver(){
         
     }
