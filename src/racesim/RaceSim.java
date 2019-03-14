@@ -93,6 +93,10 @@ public class RaceSim extends Application {
         }
         locations.set(3,new Location('D',loc4x,loc4y));
     }
+    public void buildCarData(){
+        
+    }
+
     public void carVisuals(){
         ArrayList<Image> carPics = new ArrayList<>();
         carPics.add(new Image("Cars-Lightning-McQueen-128.PNG"));
