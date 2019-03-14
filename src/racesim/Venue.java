@@ -18,7 +18,6 @@ public class Venue extends Pane{
         super.setHeight(height);
         super.setWidth(width);
         super.setStyle(("-fx-background-color: black;"));
-        super.getChildren().add(cars.get(1).getCarVisual());
     }
     public Venue(){}
     
