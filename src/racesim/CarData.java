@@ -27,12 +27,14 @@ public class CarData extends StackPane {
     private ArrayList<Car> allCars;
     private ArrayList<Location> locations;
     private Rectangle carDataVisual;
+    private int height;private int width;
     private static final int NUMCARS = 4;
     
-    public CarData(ArrayList<Car> allCars, ArrayList<Location> locations) {
+    public CarData(ArrayList<Car> allCars, ArrayList<Location> locations,int height,int width) {
         this.allCars = allCars;
         this.locations = locations;
-        Rectangle carDataVisual = new Rectangle(500,500);
+        this.height=height;this.width=width;
+        Rectangle carDataVisual = new Rectangle(height,width);
         String startData = new String();
         for (Car car: allCars) {
             startData += "Car " + car.getCarID() + " data: \n";
@@ -46,7 +48,7 @@ public class CarData extends StackPane {
         setAlignment(Pos.CENTER_RIGHT);
         getChildren().addAll(carDataVisual, startText);
     }
-    
+    public CarData(){}
     
     public void updateData() {
         String newData = new String();

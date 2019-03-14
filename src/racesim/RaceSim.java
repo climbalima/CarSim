@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -26,8 +27,8 @@ public class RaceSim extends Application {
     private ArrayList<Car> cars;
     private ArrayList<Location> locations;
     private CarData carData;
+    private Venue venue;
     private int length,width;
-    private BorderPane bp;
     private Button start;
     private Button reset;
     
@@ -35,15 +36,16 @@ public class RaceSim extends Application {
         colors = new ArrayList<Color>();
         cars = new ArrayList<Car>();
         locations = new ArrayList<Location>();
-        carData=new CarData(cars,locations);
-        bp=new BorderPane();
+        carData=new CarData(cars,locations,700,200);
+        venue = new Venue(locations,cars,700,800);
         start=new Button("Start");
         reset=new Button("Reset");
     }
     @Override
     public void start(Stage primaryStage) {
         
-        Pane root = new Pane();
+        
+        BorderPane root = new BorderPane();
         
         Scene scene = new Scene(root, 1000, 800);
         
@@ -91,8 +93,12 @@ public class RaceSim extends Application {
         }
         locations.set(3,new Location('D',loc4x,loc4y));
     }
-    public void buildCarData(){
-        
+    public void carVisuals(){
+        ArrayList<Image> carPics = new ArrayList<>();
+        carPics.add(new Image("Cars-Lightning-McQueen-128.PNG"));
+        carPics.add(new Image("Cars-Flo-128.PNG"));
+        carPics.add(new Image("Cars-Mater-128.PNG"));
+        carPics.add(new Image("Cars-Ramone-128.PNG"));
     }
     public void checkOver(){
         

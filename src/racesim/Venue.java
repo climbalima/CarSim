@@ -1,32 +1,50 @@
 package racesim;
 
-import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Random;
+import javafx.scene.layout.Pane;
 
-public class Venue {
-    private Rectangle venueVisual;
-    //private HashMap<String, HashMap<Integer, Integer>> locationMap;
-    private HashMap<Character, Location> locations;
+public class Venue extends Pane{
+    private ArrayList<Location> locations;
     private ArrayList<Car> cars;
+    private double height;private double width;
     private static final int NUMCARS = 4;
     private static final int NUMLOCATIONS = 4;
     
-    public Venue(HashMap<Character, Location> locations, ArrayList<Car> cars){
+    public Venue(ArrayList<Location> locations, ArrayList<Car> cars,double height,double width){
         this.locations = locations;
         this.cars = cars;
-    //    Random gen = new Random();
-    //    Location[] paths = new Location[4];
+        this.height=height;
+        this.width=width;
+        super.setHeight(height);
+        super.setWidth(width);
+        super.setStyle(("-fx-background-color: black;"));
+        super.getChildren().add(cars.get(1).getCarVisual());
     }
     public Venue(){}
+    
+    public ArrayList<Location> getLocations() {
+        return locations;
+    }
 
-    public Location getLocation(char locationID) {
-        return locations.get(locationID);
+    public void setLocations(ArrayList<Location> locations) {
+        this.locations = locations;
+    }
+
+    public ArrayList<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(ArrayList<Car> cars) {
+        this.cars = cars;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
     
-    public Car getCar(int carID){
-        return cars.get(carID);
-    }
+
 }

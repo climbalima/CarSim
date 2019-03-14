@@ -7,24 +7,22 @@ import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
 
-public class Location {
+public class Location extends Circle{
     
     private ArrayList<Car> curCars;
     private ArrayList<Car> incomingCars;
     private char LocationID;
+    private final int rad=5;
     private double x_coord;
     private double y_coord;
-    private Circle locationVisual;
 
     public Location(char LocationID, double x_coord, double y_coord) {
+        super();
         ArrayList<Car> curCars = new ArrayList<Car>();
         ArrayList<Car> incomingCars = new ArrayList<Car>();
         this.LocationID = LocationID;
         this.x_coord = x_coord;
         this.y_coord = y_coord;
-        this.locationVisual = locationVisual;
-        Circle locationVisual = new Circle(x_coord, y_coord,10);
-        locationVisual.setFill(Color.RED);
         
     }
 
@@ -92,6 +90,13 @@ public class Location {
     public void removeCurCar(Car car){
         curCars.remove(car);
     }
+    
+    public double distance(Location l){
+        double xDist = x_coord-l.getX_coord();
+        double yDist = y_coord-l.getY_coord();
+        return Math.sqrt(yDist*yDist + xDist*xDist);
+    }
+    
     @Override
     public String toString() {
         return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord + ", locationVisual=" + locationVisual + '}';
