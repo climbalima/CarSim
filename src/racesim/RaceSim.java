@@ -51,12 +51,22 @@ public class RaceSim extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    public void buildCar(int i){
+    public Car buildCar(int carID){
         //create the cars
         //randomize the speed variable
         //create car's path randomized
         //call in for loop in start method
         //set line color in switch statement
+        int speeed = 10;
+        String locations = "abcd";
+        Random gen = new Random();
+        char[] carPath = new char[NUMPATH];
+        for (int i = 0; i < NUMPATH; i++) {
+            int randInt = gen.nextInt(4);
+            carPath[i] = locations.charAt(randInt);
+        }
+        Car newCar = new Car(speed, carID, carPath, 0, );
+        return newCar;
     }
     public void buildVenue(){
         
