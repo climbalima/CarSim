@@ -92,9 +92,7 @@ public class RaceSim extends Application {
             loc4x = Math.random()*yUpper;
         }
         locations.set(3,new Location('D',loc4x,loc4y));
-    }
-    public void buildCarData(){
-        
+
     }
 
     public void carVisuals(){

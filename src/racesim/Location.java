@@ -67,14 +67,6 @@ public class Location extends Circle{
         this.y_coord = y_coord;
     }
 
-    public Circle getLocationVisual() {
-        return locationVisual;
-    }
-
-    public void setLocationVisual(Circle locationVisual) {
-        this.locationVisual = locationVisual;
-    }
-    
     public void addCurCar(Car car){
         curCars.add(car);
     }
@@ -99,7 +91,7 @@ public class Location extends Circle{
     
     @Override
     public String toString() {
-        return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord + ", locationVisual=" + locationVisual + '}';
+        return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord +'}';
     }
 
     @Override
@@ -110,7 +102,6 @@ public class Location extends Circle{
         hash = 43 * hash + this.LocationID;
         hash = 43 * hash + (int) (Double.doubleToLongBits(this.x_coord) ^ (Double.doubleToLongBits(this.x_coord) >>> 32));
         hash = 43 * hash + (int) (Double.doubleToLongBits(this.y_coord) ^ (Double.doubleToLongBits(this.y_coord) >>> 32));
-        hash = 43 * hash + Objects.hashCode(this.locationVisual);
         return hash;
     }
 
@@ -139,9 +130,6 @@ public class Location extends Circle{
             return false;
         }
         if (!Objects.equals(this.incomingCars, other.incomingCars)) {
-            return false;
-        }
-        if (!Objects.equals(this.locationVisual, other.locationVisual)) {
             return false;
         }
         return true;
