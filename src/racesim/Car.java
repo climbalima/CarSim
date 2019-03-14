@@ -53,7 +53,7 @@ public class Car {
         setCurrDestination(path[stops]);
         double time = currLocation.distance(prevLocation)/speed;
         currTime += time;
-        moving.setNode(carVisual);
+    moving.setNode(carVisual);
         moving.setDuration(Duration.millis(time*1000));
         moving.setFromX(prevLocation.getX_coord());
         moving.setToX(currLocation.getX_coord());
