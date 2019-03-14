@@ -99,8 +99,13 @@ public class RaceSim extends Application {
         carPics.add(new Image("Cars-Ramone-128.PNG"));
         return carPics;
     }
-    public void checkOver(){
-        
+    public boolean checkOver(ArrayList<Car> cars){
+        for(Car c: cars){
+            if(!c.checkWin()){
+                return false;
+            }     
+        }
+        return true;
     }
     
 
