@@ -49,12 +49,14 @@ public class RaceSim extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    public void buildCar(int i){
+    public Car buildCar(int i, int carID, String color, Image carVisual){
         //create the cars
         //randomize the speed variable
-        //create car's path randomized
-        //call in for loop in start method
+        //call in for loop in buildVenue
         //set line color in switch statement
+        int speed = (int)Math.random()*10;
+        Car newCar = new Car(speed, carID, color, carVisual);
+        return newCar;
     }
     public void buildVenue(){
         
@@ -62,12 +64,13 @@ public class RaceSim extends Application {
     public void buildLocations(){
         
     }
-    public void carVisuals(){
+    public ArrayList<Image> carVisuals(){
         ArrayList<Image> carPics = new ArrayList<>();
         carPics.add(new Image("Cars-Lightning-McQueen-128.PNG"));
         carPics.add(new Image("Cars-Flo-128.PNG"));
         carPics.add(new Image("Cars-Mater-128.PNG"));
         carPics.add(new Image("Cars-Ramone-128.PNG"));
+        return carPics;
     }
     public void checkOver(){
         
