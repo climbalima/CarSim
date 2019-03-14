@@ -19,20 +19,21 @@ public class Car {
     private Location currDestination;
     private Location destination;
     private int finishTime;
-    private Image carVisual;
+    private ImageView carVisual;
     private String carColor;
     private int currTime;
     private int stops;
     private TranslateTransition moving;
           
 
-    public Car(int speed, int carID, Location[] path, String carColor, Image carVisual) {
+    public Car(int speed, int carID, String carColor, Image carVisual) {
         this.speed = speed;
         this.carID = carID;
-        this.path = path;
+        this.path = new Location[4];
         this.currTime = 0;
         this.carColor = carColor;
-        this.carVisual = carVisual;
+        this.carVisual = new ImageView();
+        this.carVisual.setImage(carVisual);
         this.startLocation = path[0];
         this.destination = path[path.length-1];
         this.currLocation = startLocation;
@@ -52,8 +53,7 @@ public class Car {
         setCurrDestination(path[stops]);
         double time = currLocation.distance(prevLocation)/speed;
         currTime += time;
-        ImageView car = new ImageView();
-        moving.setNode(car);
+        moving.setNode(carVisual);
         moving.setDuration(Duration.millis(time*1000));
         moving.setFromX(prevLocation.getX_coord());
         moving.setToX(currLocation.getX_coord());
@@ -114,7 +114,7 @@ public class Car {
         return carColor;
     }
 
-    public Image getCarVisual() {
+    public ImageView getCarVisual() {
         return carVisual;
     }
     
@@ -166,7 +166,7 @@ public class Car {
         this.carColor = carColor;
     }
 
-    public void setCarVisual(Image carVisual) {
+    public void setCarVisual(ImageView carVisual) {
         this.carVisual = carVisual;
     }
     

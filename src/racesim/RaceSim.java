@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -90,9 +91,7 @@ public class RaceSim extends Application {
             loc4x = Math.random()*yUpper;
         }
         locations.set(3,new Location('D',loc4x,loc4y));
-    }
-    public void buildCarData(){
-        
+
     }
 
     public void carVisuals(){
