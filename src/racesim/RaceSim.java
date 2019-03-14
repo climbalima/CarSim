@@ -96,7 +96,49 @@ public class RaceSim extends Application {
     public void buildCarData(){
         
     }
+    public void generatePaths(ArrayList<Car> Cars, HashMap<Character, Location> locationMap){
+        Random gen = new Random();
+        String paths = "abcd";
 
+        for (int i = 0; i < 4; i++) {
+            char[] path = new char[4];
+            path[0] = paths.charAt(i);
+            while(true) {
+                int randInt = gen.nextInt(4);
+                if (pathGenHelper(paths.charAt(i), paths.charAt(randInt))) {
+                    path[3] = paths.charAt(randInt);
+                    break;
+                }
+
+            }
+            pathGenHelper2(path);
+            Location[] locationArr = charToLocationArray(path, locationMap);
+            Cars.get(i).setPath(locationArr);
+        }
+    }
+    
+    public Location[] charToLocationArray(char[] paths, HashMap<Character, Location> locationMap) {
+        Location[] locationArr = new Location[4];
+        for (int i = 0; i < 4; i++) {
+            locationArr[i] = locationMap.get(paths[i]);
+        }
+        return locationArr;
+    }
+    
+    public boolean pathGenHelper(char src, char dest) {
+        return src != dest;
+    }
+    
+    public void pathGenHelper2(char[] path) {
+        String paths = "abcd";
+        String newPath = paths.substring(0, paths.charAt(path[0])) + 
+        paths.substring(paths.charAt(path[0]) + 1);
+        String finalPath = paths.substring(0, paths.charAt(path[3])) + 
+        paths.substring(paths.charAt(path[3]) + 1);
+        path[1] = finalPath.charAt(0);
+        path[2] = finalPath.charAt(1);
+        
+    }
     public void carVisuals(){
         ArrayList<Image> carPics = new ArrayList<>();
         carPics.add(new Image("Cars-Lightning-McQueen-128.PNG"));
