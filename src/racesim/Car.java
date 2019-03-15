@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration; 
+import javafx.scene.paint.Color;
+
 
 public class Car {
 
@@ -20,13 +22,13 @@ public class Car {
     private Location destination;
     private int finishTime;
     private ImageView carVisual;
-    private String carColor;
+    private Color carColor;
     private int currTime;
     private int stops;
     private TranslateTransition moving;
           
 
-    public Car(int speed, int carID, String carColor, Image carVisual) {
+    public Car(int speed, int carID, Color carColor, Image carVisual) {
         this.speed = speed;
         this.carID = carID;
         this.path = new Location[4];
@@ -34,10 +36,10 @@ public class Car {
         this.carColor = carColor;
         this.carVisual = new ImageView();
         this.carVisual.setImage(carVisual);
-        this.startLocation = path[0];
-        this.destination = path[path.length-1];
-        this.currLocation = startLocation;
-        this.currDestination = path[1];
+        //this.startLocation = path[0];
+        //this.destination = path[path.length-1];
+        //this.currLocation = startLocation;
+        //this.currDestination = path[1];
         this.stops = 0;
         this.moving = new TranslateTransition();
     }
@@ -110,7 +112,7 @@ public class Car {
         return finishTime;
     }
 
-    public String getCarColor() {
+    public Color getCarColor() {
         return carColor;
     }
 
@@ -162,7 +164,7 @@ public class Car {
         this.finishTime = finishTime;
     }
 
-    public void setCarColor(String carColor) {
+    public void setCarColor(Color carColor) {
         this.carColor = carColor;
     }
 
