@@ -7,24 +7,22 @@ import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
 
-public class Location {
+public class Location extends Circle{
     
     private ArrayList<Car> curCars;
     private ArrayList<Car> incomingCars;
     private char LocationID;
+    private final int rad=5;
     private double x_coord;
     private double y_coord;
-    private Circle locationVisual;
 
     public Location(char LocationID, double x_coord, double y_coord) {
+        super();
         ArrayList<Car> curCars = new ArrayList<Car>();
         ArrayList<Car> incomingCars = new ArrayList<Car>();
         this.LocationID = LocationID;
         this.x_coord = x_coord;
         this.y_coord = y_coord;
-        this.locationVisual = locationVisual;
-        Circle locationVisual = new Circle(x_coord, y_coord,10);
-        locationVisual.setFill(Color.RED);
         
     }
 
@@ -69,14 +67,6 @@ public class Location {
         this.y_coord = y_coord;
     }
 
-    public Circle getLocationVisual() {
-        return locationVisual;
-    }
-
-    public void setLocationVisual(Circle locationVisual) {
-        this.locationVisual = locationVisual;
-    }
-    
     public void addCurCar(Car car){
         curCars.add(car);
     }
@@ -101,7 +91,7 @@ public class Location {
     
     @Override
     public String toString() {
-        return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord + ", locationVisual=" + locationVisual + '}';
+        return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord +'}';
     }
 
     @Override
@@ -112,7 +102,6 @@ public class Location {
         hash = 43 * hash + this.LocationID;
         hash = 43 * hash + (int) (Double.doubleToLongBits(this.x_coord) ^ (Double.doubleToLongBits(this.x_coord) >>> 32));
         hash = 43 * hash + (int) (Double.doubleToLongBits(this.y_coord) ^ (Double.doubleToLongBits(this.y_coord) >>> 32));
-        hash = 43 * hash + Objects.hashCode(this.locationVisual);
         return hash;
     }
 
@@ -141,9 +130,6 @@ public class Location {
             return false;
         }
         if (!Objects.equals(this.incomingCars, other.incomingCars)) {
-            return false;
-        }
-        if (!Objects.equals(this.locationVisual, other.locationVisual)) {
             return false;
         }
         return true;

@@ -96,9 +96,6 @@ public class RaceSim extends Application {
         locations.set(3,new Location('D',loc4x,loc4y));
     }
 
-    public void buildCarData(){
-        
-    }
     public void generatePaths(ArrayList<Car> Cars, HashMap<Character, Location> locationMap){
         Random gen = new Random();
         String paths = "abcd";
