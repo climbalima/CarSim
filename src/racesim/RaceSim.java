@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
+import java.util.HashMap;
 /**
  *
  * @author max
@@ -26,6 +26,7 @@ public class RaceSim extends Application {
     private ArrayList<Color> colors;
     private ArrayList<Car> cars;
     private ArrayList<Location> locations;
+    private ArrayList<Image> carPics;
     private CarData carData;
     private Venue venue;
     private int length,width;
@@ -36,6 +37,7 @@ public class RaceSim extends Application {
         colors = new ArrayList<Color>();
         cars = new ArrayList<Car>();
         locations = new ArrayList<Location>();
+        carPics = new ArrayList<Image>();
         carData=new CarData(cars,locations,700,200);
         venue = new Venue(locations,cars,700,800);
         start=new Button("Start");
@@ -53,7 +55,7 @@ public class RaceSim extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    public Car buildCar(int i, int carID, String color, Image carVisual){
+    public Car buildCar(int carID, Color color, Image carVisual){
         //create the cars
         //randomize the speed variable
         //call in for loop in buildVenue
@@ -66,7 +68,10 @@ public class RaceSim extends Application {
         
     }
     public void buildVenue(){
-        
+        buildLocations();
+        for(int n = 0; n<4; n++){
+            cars.add(buildCar(n, colors.get(n), carPics.get(n)));
+        }
     }
     public void buildLocations(){
         double xUpper= 690;double yUpper=590;
@@ -96,6 +101,10 @@ public class RaceSim extends Application {
         locations.set(3,new Location('D',loc4x,loc4y));
     }
 
+    public void buildCarData(){
+        
+    }
+    
     public void generatePaths(ArrayList<Car> Cars, HashMap<Character, Location> locationMap){
         Random gen = new Random();
         String paths = "abcd";
@@ -139,14 +148,11 @@ public class RaceSim extends Application {
         path[2] = finalPath.charAt(1);
         
     }
-
-    public ArrayList<Image> carVisuals(){
-        ArrayList<Image> carPics = new ArrayList<>();
+    public void setCarVisuals(){
         carPics.add(new Image("Cars-Lightning-McQueen-128.PNG"));
         carPics.add(new Image("Cars-Flo-128.PNG"));
         carPics.add(new Image("Cars-Mater-128.PNG"));
         carPics.add(new Image("Cars-Ramone-128.PNG"));
-        return carPics;
     }
     public boolean checkOver(ArrayList<Car> cars){
         for(Car c: cars){
