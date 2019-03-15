@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import java.util.HashMap;
 
 /**
  *
@@ -25,7 +26,7 @@ import javafx.scene.paint.Color;
 public class RaceSim extends Application {
     private ArrayList<Color> colors;
     private ArrayList<Car> cars;
-    private ArrayList<Location> locations;
+    private HashMap<Character, Location> locations;
     private CarData carData;
     private Venue venue;
     private int length,width;
@@ -35,9 +36,9 @@ public class RaceSim extends Application {
     public RaceSim(){
         colors = new ArrayList<Color>();
         cars = new ArrayList<Car>();
-        locations = new ArrayList<Location>();
+        locations = new HashMap<Character, Location>();
         carData=new CarData(cars,locations,700,200);
-        venue = new Venue(locations,cars,700,800);
+        venue = new Venue(locations ,cars,700,800);
         start=new Button("Start");
         reset=new Button("Reset");
     }
@@ -72,28 +73,28 @@ public class RaceSim extends Application {
         double xUpper= 690;double yUpper=590;
         double loc1x = Math.random()*xUpper;
         double loc1y = Math.random()*yUpper;
-        locations.set(0, new Location('A',loc1x,loc1y));
+        locations.put('a', new Location('a',loc1x,loc1y));
         double loc2x = Math.random()*xUpper;
         double loc2y = Math.random()*yUpper;
         if(loc2y==loc1y||loc2x==loc1x){
             loc2x = Math.random()*xUpper;
             loc2y = Math.random()*yUpper;
         }
-        locations.set(1,new Location('B',loc2x,loc2y));
+        locations.put('b',new Location('b',loc2x,loc2y));
         double loc3x = Math.random()*xUpper;
         double loc3y = Math.random()*yUpper;
         if(loc3y==loc2y||loc3y==loc1y||loc3x==loc2x||loc3x==loc1x){
             loc3x = Math.random()*xUpper;
             loc3y = Math.random()*yUpper;
         }
-        locations.set(2,new Location('C',loc3x,loc3y));
+        locations.put('c',new Location('c',loc3x,loc3y));
         double loc4x = Math.random()*xUpper;
         double loc4y = Math.random()*yUpper;
         if(loc4y==loc3y||loc4y==loc2y||loc4y==loc1y||loc4x==loc3x||loc4x==loc2x||loc4x==loc1x){
             loc4y = Math.random()*xUpper;
             loc4x = Math.random()*yUpper;
         }
-        locations.set(3,new Location('D',loc4x,loc4y));
+        locations.put('d',new Location('d',loc4x,loc4y));
     }
 
     public void generatePaths(ArrayList<Car> Cars, HashMap<Character, Location> locationMap){
@@ -101,13 +102,14 @@ public class RaceSim extends Application {
         String paths = "abcd";
 
         for (int i = 0; i < 4; i++) {
+            int flag = 1;
             char[] path = new char[4];
             path[0] = paths.charAt(i);
-            while(true) {
+            while(flag == 1) {
                 int randInt = gen.nextInt(4);
                 if (pathGenHelper(paths.charAt(i), paths.charAt(randInt))) {
                     path[3] = paths.charAt(randInt);
-                    break;
+                    flag = 0;
                 }
 
             }
