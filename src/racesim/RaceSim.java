@@ -101,13 +101,14 @@ public class RaceSim extends Application {
         String paths = "abcd";
 
         for (int i = 0; i < 4; i++) {
+            int flag = 1;
             char[] path = new char[4];
             path[0] = paths.charAt(i);
-            while(true) {
+            while(flag = 1) {
                 int randInt = gen.nextInt(4);
                 if (pathGenHelper(paths.charAt(i), paths.charAt(randInt))) {
                     path[3] = paths.charAt(randInt);
-                    break;
+                    flag = 0;
                 }
 
             }
