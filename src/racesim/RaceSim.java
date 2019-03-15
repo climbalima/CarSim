@@ -11,11 +11,13 @@ import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -35,7 +37,9 @@ public class RaceSim extends Application {
     private Venue venue;
     private Color locColor;
     private double locRad;
-    private int length,width;
+    private double btHeight,btWidth;
+    private double btnHght;
+    private FlowPane bottom;
     private Button start;
     private Button reset;
     //written by Eliza
@@ -43,28 +47,40 @@ public class RaceSim extends Application {
         colors = new ArrayList<Color>();
         cars = new ArrayList<Car>();
         locations = new ArrayList<Location>();
-        carData=new CarData(cars,locations,700,200);
-        venue = new Venue(locations,cars,700,800);
-        locColor=Color.WHITE;
+        carData=new CarData(cars,locations,200,650);
+        venue = new Venue(locations,cars,800,650);
+        btHeight=200;btWidth=1000;
+        bottom= new FlowPane();
+        bottom.setMinHeight(btHeight);
+        bottom.setMinWidth(btWidth);
+        locColor=Color.BLACK;
         locRad=5;
         start=new Button("Start");
+        start.setMinHeight(btnHght);
         reset=new Button("Reset");
+        reset.setMinHeight(btnHght);
+
     }
     @Override
     //written by Eliza
     public void start(Stage primaryStage) {
-        
-        
+        bottom.setAlignment(Pos.TOP_CENTER);
+        bottom.setHgap(50);
+        bottom.getChildren().addAll(start,reset);
         BorderPane root = new BorderPane();
-        
+        root.setBottom(bottom);
+        root.setLeft(venue);
+        root.setRight(carData);
+        buildLocations();
         Scene scene = new Scene(root, 1000, 800);
         
         primaryStage.setTitle("Car Racing Project: Eliza Doering, Miguel Oyler-Castrillo, Max Hernandez");
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    //written by Miguel
-    public Car buildCar(int i, int carID, String color, Image carVisual){
+    //written by Max
+    public Car buildCar(int carID, String color, Image carVisual){
         //create the cars
         //randomize the speed variable
         //call in for loop in buildVenue
@@ -81,10 +97,10 @@ public class RaceSim extends Application {
     }
     //written by Eliza
     public void buildLocations(){
-        double xUpper= 690;double yUpper=590;
+        double xUpper= 590;double yUpper=490;
         double loc1x = Math.random()*xUpper;
         double loc1y = Math.random()*yUpper;
-        locations.set(0, new Location('A',loc1x,loc1y,locRad,locColor));
+        locations.add(0, new Location('A',loc1x,loc1y,locRad,locColor));
         
         double loc2x = Math.random()*xUpper;
         double loc2y = Math.random()*yUpper;
@@ -92,7 +108,7 @@ public class RaceSim extends Application {
             loc2x = Math.random()*xUpper;
             loc2y = Math.random()*yUpper;
         }
-        locations.set(1,new Location('B',loc2x,loc2y,locRad,locColor));
+        locations.add(1,new Location('B',loc2x,loc2y,locRad,locColor));
         
         double loc3x = Math.random()*xUpper;
         double loc3y = Math.random()*yUpper;
@@ -100,7 +116,7 @@ public class RaceSim extends Application {
             loc3x = Math.random()*xUpper;
             loc3y = Math.random()*yUpper;
         }
-        locations.set(2,new Location('C',loc3x,loc3y,locRad,locColor));
+        locations.add(2,new Location('C',loc3x,loc3y,locRad,locColor));
         
         double loc4x = Math.random()*xUpper;
         double loc4y = Math.random()*yUpper;
@@ -108,9 +124,13 @@ public class RaceSim extends Application {
             loc4y = Math.random()*xUpper;
             loc4x = Math.random()*yUpper;
         }
-        locations.set(3,new Location('D',loc4x,loc4y,locRad,locColor));
+        locations.add(3,new Location('D',loc4x,loc4y,locRad,locColor));
+        for(int i=0;i<locations.size();i++){
+            venue.getChildren().add(locations.get(i));
+        }
     }
     //written by Miguel
+    
     public void generatePaths(ArrayList<Car> Cars, HashMap<Character, Location> locationMap){
         Random gen = new Random();
         String paths = "abcd";
@@ -122,7 +142,6 @@ public class RaceSim extends Application {
                 int randInt = gen.nextInt(4);
                 if (pathGenHelper(paths.charAt(i), paths.charAt(randInt))) {
                     path[3] = paths.charAt(randInt);
-                    break;
                 }
 
             }
@@ -172,7 +191,7 @@ public class RaceSim extends Application {
         return true;
     }
     public void reset(){
-        
+       
     }
 
     
