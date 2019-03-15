@@ -6,6 +6,7 @@
 package racesim;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,29 +20,38 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 /**
- *
- * @author max
+ *This class builds a stage for a venue with locations and cars to race on
+ * the locations are placed randomly within bounds on the venue pane
+ * the paths for the cars are generated with the use of a hashmap 
+ * buttons for beginning the game
+ * @author Max,Eliza,Miguel 
  */
 public class RaceSim extends Application {
+    //attributes
     private ArrayList<Color> colors;
     private ArrayList<Car> cars;
     private ArrayList<Location> locations;
     private CarData carData;
     private Venue venue;
+    private Color locColor;
+    private double locRad;
     private int length,width;
     private Button start;
     private Button reset;
-    
+    //written by Eliza
     public RaceSim(){
         colors = new ArrayList<Color>();
         cars = new ArrayList<Car>();
         locations = new ArrayList<Location>();
         carData=new CarData(cars,locations,700,200);
         venue = new Venue(locations,cars,700,800);
+        locColor=Color.WHITE;
+        locRad=5;
         start=new Button("Start");
         reset=new Button("Reset");
     }
     @Override
+    //written by Eliza
     public void start(Stage primaryStage) {
         
         
@@ -49,10 +59,11 @@ public class RaceSim extends Application {
         
         Scene scene = new Scene(root, 1000, 800);
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Car Racing Project: Eliza Doering, Miguel Oyler-Castrillo, Max Hernandez");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    //written by Miguel
     public Car buildCar(int i, int carID, String color, Image carVisual){
         //create the cars
         //randomize the speed variable
@@ -68,34 +79,38 @@ public class RaceSim extends Application {
     public void buildVenue(){
         
     }
+    //written by Eliza
     public void buildLocations(){
         double xUpper= 690;double yUpper=590;
         double loc1x = Math.random()*xUpper;
         double loc1y = Math.random()*yUpper;
-        locations.set(0, new Location('A',loc1x,loc1y));
+        locations.set(0, new Location('A',loc1x,loc1y,locRad,locColor));
+        
         double loc2x = Math.random()*xUpper;
         double loc2y = Math.random()*yUpper;
         if(loc2y==loc1y||loc2x==loc1x){
             loc2x = Math.random()*xUpper;
             loc2y = Math.random()*yUpper;
         }
-        locations.set(1,new Location('B',loc2x,loc2y));
+        locations.set(1,new Location('B',loc2x,loc2y,locRad,locColor));
+        
         double loc3x = Math.random()*xUpper;
         double loc3y = Math.random()*yUpper;
         if(loc3y==loc2y||loc3y==loc1y||loc3x==loc2x||loc3x==loc1x){
             loc3x = Math.random()*xUpper;
             loc3y = Math.random()*yUpper;
         }
-        locations.set(2,new Location('C',loc3x,loc3y));
+        locations.set(2,new Location('C',loc3x,loc3y,locRad,locColor));
+        
         double loc4x = Math.random()*xUpper;
         double loc4y = Math.random()*yUpper;
         if(loc4y==loc3y||loc4y==loc2y||loc4y==loc1y||loc4x==loc3x||loc4x==loc2x||loc4x==loc1x){
             loc4y = Math.random()*xUpper;
             loc4x = Math.random()*yUpper;
         }
-        locations.set(3,new Location('D',loc4x,loc4y));
+        locations.set(3,new Location('D',loc4x,loc4y,locRad,locColor));
     }
-
+    //written by Miguel
     public void generatePaths(ArrayList<Car> Cars, HashMap<Character, Location> locationMap){
         Random gen = new Random();
         String paths = "abcd";
@@ -116,7 +131,7 @@ public class RaceSim extends Application {
             Cars.get(i).setPath(locationArr);
         }
     }
-    
+    //written by Miguel
     public Location[] charToLocationArray(char[] paths, HashMap<Character, Location> locationMap) {
         Location[] locationArr = new Location[4];
         for (int i = 0; i < 4; i++) {
@@ -124,11 +139,11 @@ public class RaceSim extends Application {
         }
         return locationArr;
     }
-    
+    //written by Miguel
     public boolean pathGenHelper(char src, char dest) {
         return src != dest;
     }
-    
+    //written by Miguel
     public void pathGenHelper2(char[] path) {
         String paths = "abcd";
         String newPath = paths.substring(0, paths.charAt(path[0])) + 
@@ -139,7 +154,7 @@ public class RaceSim extends Application {
         path[2] = finalPath.charAt(1);
         
     }
-
+    //written by Max
     public ArrayList<Image> carVisuals(){
         ArrayList<Image> carPics = new ArrayList<>();
         carPics.add(new Image("Cars-Lightning-McQueen-128.PNG"));

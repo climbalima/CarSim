@@ -7,7 +7,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration; 
-
+/**
+ * 
+ * @author Max Hernandez
+ */
 public class Car {
 
     private int speed;

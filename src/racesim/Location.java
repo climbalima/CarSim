@@ -6,24 +6,28 @@ import java.util.Objects;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
-
+/**
+ * 
+ * @author Eliza Doering
+ */
 public class Location extends Circle{
     
     private ArrayList<Car> curCars;
     private ArrayList<Car> incomingCars;
     private char LocationID;
-    private final int rad=5;
+    private Color color;
+    private double rad;
     private double x_coord;
     private double y_coord;
 
-    public Location(char LocationID, double x_coord, double y_coord) {
-        super();
+    public Location(char LocationID, double x_coord, double y_coord,double rad,Color color) {
+        super(x_coord,y_coord,rad,color);
         ArrayList<Car> curCars = new ArrayList<Car>();
         ArrayList<Car> incomingCars = new ArrayList<Car>();
         this.LocationID = LocationID;
-        this.x_coord = x_coord;
-        this.y_coord = y_coord;
-        
+    }
+    public Location(){
+        super();
     }
 
     public ArrayList<Car> getCurCars() {
