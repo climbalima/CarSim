@@ -26,7 +26,7 @@ public class Venue extends Pane{
         return locations.get(locationID);
     }
 
-    public void setLocations(ArrayList<Location> locations) {
+    public void setLocations(HashMap<Character, Location> locations) {
         this.locations = locations;
     }
 
