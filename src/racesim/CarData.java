@@ -22,15 +22,19 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import java.util.Random;
-
+/**
+ * 
+ * @author Miguel Oyler-Castrillo
+ */
 public class CarData extends StackPane {
     private ArrayList<Car> allCars;
-    private ArrayList<Location> locations;
+    private HashMap<Character,Location> locations;
     private Rectangle carDataVisual;
     private int height;private int width;
     private static final int NUMCARS = 4;
     
-    public CarData(ArrayList<Car> allCars, ArrayList<Location> locations,int height,int width) {
+    public CarData(ArrayList<Car> allCars, HashMap<Character,Location> locations,int height,int width) {
+        super();
         this.allCars = allCars;
         this.locations = locations;
         this.height=height;this.width=width;
@@ -48,7 +52,9 @@ public class CarData extends StackPane {
         setAlignment(Pos.CENTER_RIGHT);
         getChildren().addAll(carDataVisual, startText);
     }
-    public CarData(){}
+    public CarData(){
+        super();
+    }
     
     public void updateData() {
         String newData = new String();
