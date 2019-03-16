@@ -32,6 +32,7 @@ public class RaceSim extends Application {
     //attributes
     private ArrayList<Color> colors;
     private ArrayList<Car> cars;
+    private HashMap<Character, Location> locHash;
     private ArrayList<Location> locations;
     private ArrayList<Image> carPics;
     private CarData carData;
@@ -47,10 +48,11 @@ public class RaceSim extends Application {
     public RaceSim(){
         colors = new ArrayList<Color>();
         cars = new ArrayList<Car>();
+        locHash = new HashMap<Character, Location>();
         locations = new ArrayList<Location>();
         carPics = new ArrayList<Image>();
-        carData=new CarData(cars,locations,200,650);
-        venue = new Venue(locations,cars,800,650);
+        carData=new CarData(cars,locHash,200,650);
+        venue = new Venue(locHash,cars,800,650);
         btHeight=200;btWidth=1000;
         bottom= new FlowPane();
         bottom.setMinHeight(btHeight);
@@ -107,6 +109,7 @@ public class RaceSim extends Application {
         double loc1x = Math.random()*xUpper;
         double loc1y = Math.random()*yUpper;
         locations.add(0, new Location('A',loc1x,loc1y,locRad,locColor));
+        locHash.put('a',locations.get(0));
         
         double loc2x = Math.random()*xUpper;
         double loc2y = Math.random()*yUpper;
@@ -115,6 +118,7 @@ public class RaceSim extends Application {
             loc2y = Math.random()*yUpper;
         }
         locations.add(1,new Location('B',loc2x,loc2y,locRad,locColor));
+        locHash.put('b',locations.get(1));
         
         double loc3x = Math.random()*xUpper;
         double loc3y = Math.random()*yUpper;
@@ -123,6 +127,7 @@ public class RaceSim extends Application {
             loc3y = Math.random()*yUpper;
         }
         locations.add(2,new Location('C',loc3x,loc3y,locRad,locColor));
+        locHash.put('c',locations.get(2));
         
         double loc4x = Math.random()*xUpper;
         double loc4y = Math.random()*yUpper;
@@ -131,7 +136,8 @@ public class RaceSim extends Application {
             loc4x = Math.random()*yUpper;
         }
         locations.add(3,new Location('D',loc4x,loc4y,locRad,locColor));
-        for(int i=0;i<locations.size();i++){
+        locHash.put('d',locations.get(3));
+        for(int i=0;i<locHash.size();i++){
             venue.getChildren().add(locations.get(i));
         }
     }
@@ -184,10 +190,10 @@ public void generatePaths(ArrayList<Car> Cars, HashMap<Character, Location> loca
 
     //written by Max
     public void carVisuals(){
-        carPics.add(new Image("Cars-Lightning-McQueen-128.PNG"));
-        carPics.add(new Image("Cars-Flo-128.PNG"));
-        carPics.add(new Image("Cars-Mater-128.PNG"));
-        carPics.add(new Image("Cars-Ramone-128.PNG"));
+        carPics.add(new Image("file:Cars-Lightning-McQueen-128.PNG"));
+        carPics.add(new Image("file:Cars-Flo-128.PNG"));
+        carPics.add(new Image("file:Cars-Mater-128.PNG"));
+        carPics.add(new Image("file:Cars-Ramone-128.PNG"));
         colors.add(Color.DEEPSKYBLUE);
         colors.add(Color.CRIMSON);
         colors.add(Color.LIMEGREEN);

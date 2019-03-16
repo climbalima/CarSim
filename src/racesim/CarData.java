@@ -28,12 +28,12 @@ import java.util.Random;
  */
 public class CarData extends StackPane {
     private ArrayList<Car> allCars;
-    private ArrayList<Location> locations;
+    private HashMap<Character,Location> locations;
     private Rectangle carDataVisual;
     private int height;private int width;
     private static final int NUMCARS = 4;
     
-    public CarData(ArrayList<Car> allCars, ArrayList<Location> locations,int height,int width) {
+    public CarData(ArrayList<Car> allCars, HashMap<Character,Location> locations,int height,int width) {
         super();
         this.allCars = allCars;
         this.locations = locations;

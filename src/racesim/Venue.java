@@ -1,6 +1,7 @@
 package racesim;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import javafx.scene.layout.Pane;
 /**
@@ -8,13 +9,13 @@ import javafx.scene.layout.Pane;
  * @author Eliza Doering
  */
 public class Venue extends Pane{
-    private ArrayList<Location> locations;
+    private HashMap<Character,Location> locations;
     private ArrayList<Car> cars;
     private double height;private double width;
     private static final int NUMCARS = 4;
     private static final int NUMLOCATIONS = 4;
     
-    public Venue(ArrayList<Location> locations, ArrayList<Car> cars,double height,double width){
+    public Venue(HashMap<Character,Location> locations, ArrayList<Car> cars,double height,double width){
         super();
         this.locations = locations;
         this.cars = cars;
@@ -32,11 +33,11 @@ public class Venue extends Pane{
         super();
     }
     
-    public ArrayList<Location> getLocations() {
+    public HashMap<Character,Location> getLocations() {
         return locations;
     }
 
-    public void setLocations(ArrayList<Location> locations) {
+    public void setLocations(HashMap<Character,Location> locations) {
         this.locations = locations;
     }
 
