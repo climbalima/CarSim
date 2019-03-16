@@ -7,11 +7,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
 /**
- * 
+ *
  * @author Eliza Doering
  */
-public class Location extends Circle{
-    
+public class Location extends Circle {
+
     private ArrayList<Car> curCars;
     private ArrayList<Car> incomingCars;
     private char LocationID;
@@ -20,20 +20,20 @@ public class Location extends Circle{
     private double x_coord;
     private double y_coord;
 
-    public Location(char LocationID, double x_coord, double y_coord,double rad,Color color) {
-        super(x_coord,y_coord,rad,color);
+    public Location(char LocationID, double x_coord, double y_coord, double rad, Color color) {
+        super(x_coord, y_coord, rad, color);
         ArrayList<Car> curCars = new ArrayList<Car>();
         ArrayList<Car> incomingCars = new ArrayList<Car>();
         this.LocationID = LocationID;
     }
-    public Location(){
+
+    public Location() {
         super();
     }
 
     public ArrayList<Car> getCurCars() {
         return curCars;
     }
-    
 
     public void setCurCars(ArrayList<Car> curCars) {
         this.curCars = curCars;
@@ -71,31 +71,31 @@ public class Location extends Circle{
         this.y_coord = y_coord;
     }
 
-    public void addCurCar(Car car){
+    public void addCurCar(Car car) {
         curCars.add(car);
     }
-    
-    public void addIncomingCar(Car car){
+
+    public void addIncomingCar(Car car) {
         incomingCars.add(car);
     }
-    
-    public void removeIncomingCar(Car car){
+
+    public void removeIncomingCar(Car car) {
         incomingCars.remove(car);
     }
-    
-    public void removeCurCar(Car car){
+
+    public void removeCurCar(Car car) {
         curCars.remove(car);
     }
-    
-    public double distance(Location l){
-        double xDist = x_coord-l.getX_coord();
-        double yDist = y_coord-l.getY_coord();
-        return Math.sqrt(yDist*yDist + xDist*xDist);
+
+    public double distance(Location l) {
+        double xDist = x_coord - l.getX_coord();
+        double yDist = y_coord - l.getY_coord();
+        return Math.sqrt(yDist * yDist + xDist * xDist);
     }
-    
+
     @Override
     public String toString() {
-        return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord +'}';
+        return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord + '}';
     }
 
     @Override
@@ -138,9 +138,5 @@ public class Location extends Circle{
         }
         return true;
     }
-    
-
-
 
 }
-
