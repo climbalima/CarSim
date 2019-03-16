@@ -20,7 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
+import java.util.HashMap;
 /**
  *This class builds a stage for a venue with locations and cars to race on
  * the locations are placed randomly within bounds on the venue pane
@@ -86,6 +86,7 @@ public class RaceSim extends Application {
         primaryStage.show();
     }
     //written by Max
+=======
     public Car buildCar(int carID, Color color, Image carVisual){
         //create the cars
         //randomize the speed variable
@@ -99,6 +100,7 @@ public class RaceSim extends Application {
         
     }
     public void buildVenue(){
+        buildLocations();
         for(int n = 0; n<4; n++){
             cars.add(buildCar(n, colors.get(n), carPics.get(n)));
         }

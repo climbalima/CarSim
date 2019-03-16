@@ -8,10 +8,8 @@ import javafx.scene.shape.Line;
 import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
 import javafx.util.Duration; 
-/**
- * 
- * @author Max Hernandez
- */
+import javafx.scene.paint.Color;
+
 public class Car {
 
     private int speed;
@@ -38,10 +36,10 @@ public class Car {
         this.carColor = carColor;
         this.carVisual = new ImageView();
         this.carVisual.setImage(carVisual);
-        this.startLocation = path[0];
-        this.destination = path[path.length-1];
-        this.currLocation = startLocation;
-        this.currDestination = path[1];
+        //this.startLocation = path[0];
+        //this.destination = path[path.length-1];
+        //this.currLocation = startLocation;
+        //this.currDestination = path[1];
         this.stops = 0;
         this.moving = new TranslateTransition();
     }
