@@ -6,7 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 import javafx.animation.TranslateTransition;
+import javafx.scene.paint.Color;
 import javafx.util.Duration; 
+import javafx.scene.paint.Color;
 
 public class Car {
 
@@ -19,46 +21,46 @@ public class Car {
     private Location currDestination;
     private Location destination;
     private int finishTime;
-    private Image carVisual;
-    private String carColor;
+    private ImageView carVisual;
+    private Color carColor;
     private int currTime;
     private int stops;
-    private TranslateTransition moving;
+    //private TranslateTransition moving;
           
 
-    public Car(int speed, int carID, Location[] path, String carColor, Image carVisual) {
+    public Car(int speed, int carID, Color carColor, Image carVisual) {
         this.speed = speed;
         this.carID = carID;
-        this.path = path;
+        this.path = new Location[4];
         this.currTime = 0;
         this.carColor = carColor;
-        this.carVisual = carVisual;
-        this.startLocation = path[0];
-        this.destination = path[path.length-1];
-        this.currLocation = startLocation;
-        this.currDestination = path[1];
+        this.carVisual = new ImageView();
+        this.carVisual.setImage(carVisual);
         this.stops = 0;
-        this.moving = new TranslateTransition();
+        
     }
 
     public boolean checkWin(){
-        return currLocation == path[path.length-1]; 
+        return currLocation.equals(path[path.length-1]);
     }
     
     public void drive(){
+        TranslateTransition moving = new TranslateTransition();
+        moving.setNode(this.carVisual);
         stops++;
-        setPrevLocation(getCurrLocation());
-        setCurrLocation(getCurrDestination());
-        setCurrDestination(path[stops]);
+        setPrevLocation(path[stops-1]);
+        setCurrLocation(path[stops]);
+        if(!checkWin()){
+            setCurrDestination(path[stops+1]);
+        }
         double time = currLocation.distance(prevLocation)/speed;
         currTime += time;
-        ImageView car = new ImageView();
-        moving.setNode(car);
         moving.setDuration(Duration.millis(time*1000));
         moving.setFromX(prevLocation.getX_coord());
         moving.setToX(currLocation.getX_coord());
         moving.setFromY(prevLocation.getY_coord());
         moving.setToY(currLocation.getY_coord());
+        moving.setAutoReverse(false);
         moving.play();
     }
     
@@ -68,6 +70,13 @@ public class Car {
         segment.setStartY(prevLocation.getY_coord());
         segment.setEndX(currLocation.getX_coord());
         segment.setEndY(currLocation.getY_coord());
+    }
+    
+    public void initPath(){
+        this.startLocation = path[0];
+        this.destination = path[path.length-1];
+        this.currLocation = startLocation;
+        this.currDestination = path[1];
     }
     
     public int getSpeed() {
@@ -110,17 +119,17 @@ public class Car {
         return finishTime;
     }
 
-    public String getCarColor() {
+    public Color getCarColor() {
         return carColor;
     }
 
-    public Image getCarVisual() {
+    public ImageView getCarVisual() {
         return carVisual;
     }
     
-    public TranslateTransition getMoving(){
+    /*public TranslateTransition getMoving(){
         return moving;
-    }
+    }*/
 
     public void setSpeed(int speed) {
         this.speed = speed;
@@ -162,17 +171,17 @@ public class Car {
         this.finishTime = finishTime;
     }
 
-    public void setCarColor(String carColor) {
+    public void setCarColor(Color carColor) {
         this.carColor = carColor;
     }
 
-    public void setCarVisual(Image carVisual) {
+    public void setCarVisual(ImageView carVisual) {
         this.carVisual = carVisual;
     }
     
-    public void setMoving(TranslateTransition moving){
+    /*public void setMoving(TranslateTransition moving){
         this.moving = moving;
-    }
+    }*/
 
     @Override
     public int hashCode() {
