@@ -17,7 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -65,13 +64,8 @@ public class RaceSim extends Application {
         
     }
     public void carVisuals(){
-        ArrayList<Image> carPics = new ArrayList<>();
-        carPics.add(new Image("Cars-Lightning-McQueen-128.PNG"));
-        carPics.add(new Image("Cars-Flo-128.PNG"));
-        carPics.add(new Image("Cars-Mater-128.PNG"));
-        carPics.add(new Image("Cars-Ramone-128.PNG"));
-    }
     
+    }
     public void checkOver(){
         
     }
