@@ -56,8 +56,8 @@ public class RaceSim extends Application {
         locations = new ArrayList<Location>();
         carPics = new ArrayList<>();
         locHash = new HashMap<Character, Location>();
-        carData=new CarData(cars,locHash,700,200);
-        venue = new Venue(locHash ,cars,700,800);
+        carData=new CarData(cars,locations,700,200);
+        venue = new Venue(locations ,cars,700,800);
         start=new Button("Start");
         btHeight=200;btWidth=1000;
         bottom= new FlowPane();
