@@ -29,7 +29,7 @@ public class CarData extends StackPane {
     private Rectangle carDataVisual;
     private static final int NUMCARS = 4;
     
-    public CarData(ArrayList<Car> allCars, ArrayList<Location> locations) {
+    public CarData(ArrayList<Car> allCars, ArrayList<Location> locations, int x, int y) {
         this.allCars = allCars;
         this.locations = locations;
         Rectangle carDataVisual = new Rectangle(500,500);
