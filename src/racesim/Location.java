@@ -1,111 +1,96 @@
 package racesim;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
- *
- * @author Eliza Doering
+ *This class creates a location 
+ * It extends javafx's Circle class
+ * The circle objects are viewable 
+ * @author Eliza Doering and Max Hernandez 
  */
 public class Location extends Circle {
-
-    private ArrayList<Car> curCars;
-    private ArrayList<Car> incomingCars;
-    private char LocationID;
+//attributes
+    //for identifying the specific location
+    private char ID;
+    //a color for its viewing purposes
     private Color color;
+    //radius
     private double rad;
-    private double x_coord;
-    private double y_coord;
-
-    public Location(char LocationID, double x_coord, double y_coord, double rad, Color color) {
-        super(x_coord, y_coord, rad, color);
-        ArrayList<Car> curCars = new ArrayList<Car>();
-        ArrayList<Car> incomingCars = new ArrayList<Car>();
-        this.LocationID = LocationID;
+    //coordinates
+    private double x,y;
+    private Double[] coord;
+    //used to determine if it is already being used as a starting point
+    private boolean isStart;
+    //used to determine if it is already being used as an end point
+    private boolean isEnd;
+//constructors 
+    public Location(char ID, double x, double y,Color color,double rad) {
+        super(x,y,rad,color);
+        this.ID = ID;
+        //initially locations are neither start nor end points
+        isStart=false;
+        isEnd=false;
     }
-
-    public Location() {
+    public Location(){
         super();
     }
-
-    public ArrayList<Car> getCurCars() {
-        return curCars;
+//methods
+    //getters and setters for ID, isStart and isEnd
+    public char getID() {
+        return ID;
     }
 
-    public void setCurCars(ArrayList<Car> curCars) {
-        this.curCars = curCars;
+    public void setID(char ID) {
+        this.ID = ID;
     }
 
-    public ArrayList<Car> getIncomingCars() {
-        return incomingCars;
+    public boolean isStart() {
+        return isStart;
     }
 
-    public void setIncomingCars(ArrayList<Car> incomingCars) {
-        this.incomingCars = incomingCars;
+    public void setIsStart(boolean isStart) {
+        this.isStart = isStart;
     }
 
-    public char getLocationID() {
-        return LocationID;
+    public boolean isEnd() {
+        return isEnd;
     }
 
-    public void setLocationID(char LocationID) {
-        this.LocationID = LocationID;
+    public void setIsEnd(boolean isEnd) {
+        this.isEnd = isEnd;
     }
 
-    public double getX_coord() {
-        return x_coord;
+    public Double[] getCoord() {
+        return coord;
     }
-
-    public void setX_coord(double x_coord) {
-        this.x_coord = x_coord;
-    }
-
-    public double getY_coord() {
-        return y_coord;
-    }
-
-    public void setY_coord(double y_coord) {
-        this.y_coord = y_coord;
-    }
-
-    public void addCurCar(Car car) {
-        curCars.add(car);
-    }
-
-    public void addIncomingCar(Car car) {
-        incomingCars.add(car);
-    }
-
-    public void removeIncomingCar(Car car) {
-        incomingCars.remove(car);
-    }
-
-    public void removeCurCar(Car car) {
-        curCars.remove(car);
-    }
-
+    
+    //uses a call to super and the distance formula to calculate the distance between the calling and original location
     public double distance(Location l) {
-        double xDist = x_coord - l.getX_coord();
-        double yDist = y_coord - l.getY_coord();
+        double xDist = super.getCenterX() - l.getCenterX();
+        double yDist = super.getCenterY() - l.getCenterX();
+        //the distance formula 
         return Math.sqrt(yDist * yDist + xDist * xDist);
     }
 
     @Override
     public String toString() {
-        return "Location{" + "curCars=" + curCars + ", incomingCars=" + incomingCars + ", LocationID=" + LocationID + ", x_coord=" + x_coord + ", y_coord=" + y_coord + '}';
+        return "Location{" + "ID=" + ID + ", color=" + super.getFill() + ", rad=" + super.getRadius() + ", x=" + super.getCenterX() + ", y=" + super.getCenterY() + ", isStart=" + isStart + ", isEnd=" + isEnd + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 43 * hash + Objects.hashCode(this.curCars);
-        hash = 43 * hash + Objects.hashCode(this.incomingCars);
-        hash = 43 * hash + this.LocationID;
-        hash = 43 * hash + (int) (Double.doubleToLongBits(this.x_coord) ^ (Double.doubleToLongBits(this.x_coord) >>> 32));
-        hash = 43 * hash + (int) (Double.doubleToLongBits(this.y_coord) ^ (Double.doubleToLongBits(this.y_coord) >>> 32));
+        int hash = 7;
+        hash = 11 * hash + this.ID;
+        hash = 11 * hash + Objects.hashCode(this.color);
+        hash = 11 * hash + (int) (Double.doubleToLongBits(this.rad) ^ (Double.doubleToLongBits(this.rad) >>> 32));
+        hash = 11 * hash + (int) (Double.doubleToLongBits(this.x) ^ (Double.doubleToLongBits(this.x) >>> 32));
+        hash = 11 * hash + (int) (Double.doubleToLongBits(this.y) ^ (Double.doubleToLongBits(this.y) >>> 32));
+        hash = 11 * hash + Arrays.deepHashCode(this.coord);
+        hash = 11 * hash + (this.isStart ? 1 : 0);
+        hash = 11 * hash + (this.isEnd ? 1 : 0);
         return hash;
     }
 
@@ -121,22 +106,32 @@ public class Location extends Circle {
             return false;
         }
         final Location other = (Location) obj;
-        if (this.LocationID != other.LocationID) {
+        if (this.ID != other.ID) {
             return false;
         }
-        if (Double.doubleToLongBits(this.x_coord) != Double.doubleToLongBits(other.x_coord)) {
+        if (Double.doubleToLongBits(this.rad) != Double.doubleToLongBits(other.rad)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.y_coord) != Double.doubleToLongBits(other.y_coord)) {
+        if (Double.doubleToLongBits(this.x) != Double.doubleToLongBits(other.x)) {
             return false;
         }
-        if (!Objects.equals(this.curCars, other.curCars)) {
+        if (Double.doubleToLongBits(this.y) != Double.doubleToLongBits(other.y)) {
             return false;
         }
-        if (!Objects.equals(this.incomingCars, other.incomingCars)) {
+        if (this.isStart != other.isStart) {
+            return false;
+        }
+        if (this.isEnd != other.isEnd) {
+            return false;
+        }
+        if (!Objects.equals(this.color, other.color)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.coord, other.coord)) {
             return false;
         }
         return true;
     }
-
+    
+            
 }

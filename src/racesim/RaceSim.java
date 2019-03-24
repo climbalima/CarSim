@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 package racesim;
-
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
+import javafx.animation.PathTransition;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -18,43 +21,49 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
+import javafx.util.Duration;
 
 /**
- *This class builds a stage for a venue with locations and cars to race on
- * the locations are placed randomly within bounds on the venue pane
- * the paths for the cars are generated with the use of a hashmap 
- * buttons for beginning the game
+ *
  * @author Max,Eliza,Miguel 
  */
 public class RaceSim extends Application {
-    //attributes
-    private ArrayList<Color> colors;
+//attributes
+    //the cars racing
     private ArrayList<Car> cars;
-    private HashMap<Character, Location> locHash;
+    //the locations the cars will travel around
     private ArrayList<Location> locations;
-    private ArrayList<Image> carPics;
+    //a pane for storing the car's data
     private CarData carData;
+    //the pane where the race takes place
     private Venue venue;
+    //the color for the locations
     private Color locColor;
+    //the locations' radius
     private double locRad;
+    //for calculating the dimensions of the bottom pane
     private double btHeight,btWidth;
     private double btnHght;
+    //pane for storing the buttons
     private FlowPane bottom;
+    //a start button
     private Button start;
+    //a reset button
     private Button reset;
-    //written by Eliza
+//constructor
     public RaceSim(){
-        colors = new ArrayList<Color>();
         cars = new ArrayList<Car>();
-        locHash = new HashMap<Character, Location>();
         locations = new ArrayList<Location>();
-        carPics = new ArrayList<Image>();
-        carData=new CarData(cars,locHash,200,650);
-        venue = new Venue(locHash,cars,800,650);
+        //initializing the size of the carData pane
+        carData=new CarData(cars,locations,200,650);
+        //initializing the size of the venue pane
+        venue = new Venue(locations,cars,800,650);
+        //initiazling the bottom pane's dimensions 
         btHeight=200;btWidth=1000;
         bottom= new FlowPane();
+        //setting the bottom pane's dimensions
         bottom.setMinHeight(btHeight);
         bottom.setMinWidth(btWidth);
         locColor=Color.BLACK;
@@ -65,9 +74,9 @@ public class RaceSim extends Application {
         reset.setMinHeight(btnHght);
 
     }
+
     @Override
-    //written by Eliza
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
         bottom.setAlignment(Pos.TOP_CENTER);
         bottom.setHgap(50);
         bottom.getChildren().addAll(start,reset);
@@ -75,148 +84,74 @@ public class RaceSim extends Application {
         root.setBottom(bottom);
         root.setLeft(venue);
         root.setRight(carData);
-        carVisuals();
         buildLocations();
-        buildVenue();
+        buildCars();
+        start.setOnAction((ActionEvent e) -> {
+            animateCars();
+        });
+        reset.setOnAction((ActionEvent e) -> {
+            reset();
+        });
+        
         Scene scene = new Scene(root, 1000, 800);
-        
-        primaryStage.setTitle("Car Racing Project: Eliza Doering, Miguel Oyler-Castrillo, Max Hernandez");
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-    //written by Max
-    public Car buildCar(int carID, Color color, Image carVisual){
-        //create the cars
-        //randomize the speed variable
-        //call in for loop in buildVenue
-        //set line color in switch statement
-        int speed = (int)Math.random()*10;
-        Car newCar = new Car(speed, carID, color, carVisual);
-        return newCar;
-    }
-    public void startButton(){
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
         
     }
-    public void buildVenue(){
-        for(int n = 0; n<4; n++){
-            cars.add(buildCar(n, colors.get(n), carPics.get(n)));
-        }
-    }
+    //randomizes the locations
     //written by Eliza
-    public void buildLocations(){
-        double xUpper= 590;double yUpper=490;
-        double loc1x = Math.random()*xUpper;
-        double loc1y = Math.random()*yUpper;
-        locations.add(0, new Location('A',loc1x,loc1y,locRad,locColor));
-        locHash.put('a',locations.get(0));
-        
-        double loc2x = Math.random()*xUpper;
-        double loc2y = Math.random()*yUpper;
-        if(loc2y==loc1y||loc2x==loc1x){
-            loc2x = Math.random()*xUpper;
-            loc2y = Math.random()*yUpper;
-        }
-        locations.add(1,new Location('B',loc2x,loc2y,locRad,locColor));
-        locHash.put('b',locations.get(1));
-        
-        double loc3x = Math.random()*xUpper;
-        double loc3y = Math.random()*yUpper;
-        if(loc3y==loc2y||loc3y==loc1y||loc3x==loc2x||loc3x==loc1x){
-            loc3x = Math.random()*xUpper;
-            loc3y = Math.random()*yUpper;
-        }
-        locations.add(2,new Location('C',loc3x,loc3y,locRad,locColor));
-        locHash.put('c',locations.get(2));
-        
-        double loc4x = Math.random()*xUpper;
-        double loc4y = Math.random()*yUpper;
-        if(loc4y==loc3y||loc4y==loc2y||loc4y==loc1y||loc4x==loc3x||loc4x==loc2x||loc4x==loc1x){
-            loc4y = Math.random()*xUpper;
-            loc4x = Math.random()*yUpper;
-        }
-        locations.add(3,new Location('D',loc4x,loc4y,locRad,locColor));
-        locHash.put('d',locations.get(3));
-        for(int i=0;i<locHash.size();i++){
+    public void buildLocations() {
+        locations.add(new Location('A',142.5,117.5,locColor,locRad));
+        locations.add(new Location('B',142.5,325,locColor,locRad));
+        locations.add(new Location('C',570,117.5,locColor,locRad));
+        locations.add(new Location('D',570,325,locColor,locRad));
+        for(int i=0;i<locations.size();i++){
             venue.getChildren().add(locations.get(i));
         }
     }
-    //written by Miguel
-    
-public void generatePaths(ArrayList<Car> Cars, HashMap<Character, Location> locationMap){
-        Random gen = new Random();
-        String paths = "abcd";
 
-        for (int i = 0; i < 4; i++) {
-            int flag = 1;
-            char[] path = new char[4];
-            path[0] = paths.charAt(i);
-            while(flag == 1) {
-                int randInt = gen.nextInt(4);
-                if (pathGenHelper(paths.charAt(i), paths.charAt(randInt))) {
-                    path[3] = paths.charAt(randInt);
-                    flag = 0;
-                }
-
+    public ArrayList generatePath(){
+        return pathPermutations(locations);
+    }
+    private ArrayList pathPermutations(ArrayList<Location> list){
+        if(list.get(0).isStart()){
+            Collections.shuffle(list);  
+                return list;
             }
-            pathGenHelper2(path);
-            Location[] locationArr = charToLocationArray(path, locationMap);
-            Cars.get(i).setPath(locationArr);
-        }
+        return list;
     }
     
-    public Location[] charToLocationArray(char[] paths, HashMap<Character, Location> locationMap) {
+    public Location[] stringToLocationArray(String path, HashMap<Character, Location> locationMap) {
         Location[] locationArr = new Location[4];
         for (int i = 0; i < 4; i++) {
-            locationArr[i] = locationMap.get(paths[i]);
+            locationArr[i] = locationMap.get(path.charAt(i));
         }
         return locationArr;
     }
-    
-    public boolean pathGenHelper(char src, char dest) {
-        return src != dest;
+    public void buildCars(){
+        cars.add(new Car(1,generatePath(),new Image("http://aux.iconspalace.com/uploads/16277796191148912584.png")));
+        cars.add(new Car(2,generatePath(),new Image("http://aux.iconspalace.com/uploads/15211618611594226778.png")));
+        cars.add(new Car(3,generatePath(),new Image("http://aux.iconspalace.com/uploads/12939079871163965781.png")));
+        cars.add(new Car(4,generatePath(),new Image("http://aux.iconspalace.com/uploads/11489030631764325402.png")));
+        venue.addCars(cars);
     }
-    
-    public void pathGenHelper2(char[] path) {
-        String paths = "abcd";
-        String newPath = paths.substring(0, paths.charAt(path[0])) + 
-        paths.substring(paths.charAt(path[0]) + 1);
-        String finalPath = paths.substring(0, paths.charAt(path[3])) + 
-        paths.substring(paths.charAt(path[3]) + 1);
-        path[1] = finalPath.charAt(0);
-        path[2] = finalPath.charAt(1);
-        
-    }
-
-    //written by Max
-    public void carVisuals(){
-        carPics.add(new Image("file:Cars-Lightning-McQueen-128.PNG"));
-        carPics.add(new Image("file:Cars-Flo-128.PNG"));
-        carPics.add(new Image("file:Cars-Mater-128.PNG"));
-        carPics.add(new Image("file:Cars-Ramone-128.PNG"));
-        colors.add(Color.DEEPSKYBLUE);
-        colors.add(Color.CRIMSON);
-        colors.add(Color.LIMEGREEN);
-        colors.add(Color.GOLD);
-    }
-    public boolean checkOver(ArrayList<Car> cars){
-        for(Car c: cars){
-            if(!c.checkWin()){
-                return false;
-            }     
+    public void animateCars(){
+        for(Car c:cars){
+            c.drive();
         }
-        return true;
     }
     public void reset(){
-       
+        venue.removeCars(cars);
+        venue.getChildren().removeAll(locations);
+        cars=new ArrayList<Car>();
+        locations=new ArrayList<Location>();
+        buildLocations();
+        buildCars();
+        
     }
-
     
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    public static void main(String[]args){
         launch(args);
     }
     
