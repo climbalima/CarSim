@@ -196,10 +196,10 @@ public class Car {
         }
         return pathDist;
     }
-    public char pathNames(){
-        char locs=' ';
+    public String pathNames(){
+        String locs="";
         for(Location l:path){
-            locs+=l.getID()+' ';
+            locs+=l.getID()+" ";
         }
         return locs;
     }
