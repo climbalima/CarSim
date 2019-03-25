@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 /**
  * 
- * @author Miguel Oyler
+ * @author Miguel Oyler and Eliza Doering
  */
 public class Venue extends Pane{
+    //for the locations added to the venue
     private ArrayList<Location> locations;
+    //for the cars added to the venue
     private ArrayList<Car> cars;
     private double height;private double width;
     
@@ -38,7 +40,8 @@ public class Venue extends Pane{
     public void setCars(ArrayList<Car> cars) {
         this.cars = cars;
     }
-    
+    //adding the cars to the venue
+    //written by Eliza
     public void addCars(ArrayList<Car> cars){
         for(int i=0;i<cars.size();i++){
             getChildren().add(cars.get(i).getCarImage());

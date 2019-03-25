@@ -22,7 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
- *
+ *This class utilizes cars, locations and a venue to create a 
  * @author Max,Eliza,Miguel 
  */
 public class RaceSim extends Application {
@@ -50,6 +50,7 @@ public class RaceSim extends Application {
     private Button reset;
     //for the text objects
     private String startData,endData,insText;
+    //for displaying the cars' info
     private Text carInfo;
     private Text endInfo;
     private Text instructions;
@@ -128,7 +129,7 @@ public class RaceSim extends Application {
             venue.getChildren().add(locations.get(i).Id());
         }
     }
-
+    //written by Miguel
     public ArrayList generatePath(){
         return pathPermutations(locations);
     }
@@ -139,7 +140,7 @@ public class RaceSim extends Application {
             }
         return list;
     }
-    
+    //written by Max
     public void buildCars(){
         //car images courtesy of iconspalace.com 
         cars.add(new Car("Flo",generatePath(),new Image("http://aux.iconspalace.com/uploads/16277796191148912584.png")));
@@ -154,7 +155,7 @@ public class RaceSim extends Application {
             c.drive();
         }
     }
-    //Written by Miguel
+    //Written by Miguel and Eliza
     public void buildCarData(){
         //the min is used to calculate the lowest finish time of the cars
         double win=cars.get(0).finishTime();
@@ -169,24 +170,29 @@ public class RaceSim extends Application {
                     + "\nSpeed: " + c.getSpeed() 
                     + "\nPath: " + Arrays.deepToString(c.pathNames());
             }
+        //determining the winner
         for(int i=0;i<cars.size();i++){
             if(cars.get(i).finishTime()<win){
                 win=cars.get(i).finishTime();
             }
         }
+        //adding the winners data
         for(Car c:cars){
             if(c.finishTime()==win){
                 endData+="\nCar " +c.getCarID() +" wins!";
             }
         }
+        //adding the strings to the text
         carInfo.setText(startData);
         endInfo.setText(endData);
         instructions.setText(insText);
         carData.getChildren().addAll(instructions,carInfo,endInfo);
+        //positioning the texts
         carData.setAlignment(instructions,Pos.TOP_CENTER);
         carData.setAlignment(carInfo,Pos.CENTER);
         carData.setAlignment(endInfo,Pos.BOTTOM_CENTER);
     }
+    //for determing if the race is concluded
     public boolean isRaceOver(){
         for(Car c:cars){
             if(c.isFinished()){
@@ -195,7 +201,8 @@ public class RaceSim extends Application {
         }
         return false;
     }
-    
+    //redeclares everthing to start a new game
+    //written by Eliza
     public void reset(){
         venue.removeCars(cars);
         venue.getChildren().remove(locations);

@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
  *This class creates a location 
  * It extends javafx's Circle class
  * The circle objects are viewable 
- * @author Eliza Doering and Max Hernandez 
+ * @author Miguel and Max
  */
 public class Location extends Circle {
 //attributes
@@ -22,11 +22,11 @@ public class Location extends Circle {
     private double rad;
     //coordinates
     private double x,y;
-    private Double[] coord;
     //used to determine if it is already being used as a starting point
     private boolean isStart;
     //used to determine if it is already being used as an end point
     private boolean isEnd;
+    //to make the id visible on the screen
     private Text id;
 //constructors 
     public Location(char ID, double x, double y,Color color,double rad) {
@@ -38,6 +38,7 @@ public class Location extends Circle {
         id=new Text();
         String IDstr = ID+"";
         id.setText(IDstr);
+        //the +5 offsets the id to make it visible
         id.setX(x+5);
         id.setY(y+5);
     }
@@ -70,10 +71,6 @@ public class Location extends Circle {
         this.isEnd = isEnd;
     }
 
-    public Double[] getCoord() {
-        return coord;
-    }
-
     public Text Id() {
         return id;
     }
@@ -81,7 +78,7 @@ public class Location extends Circle {
     public void setId(Text id) {
         this.id = id;
     }
-    
+    //written by Max
     //uses a call to super and the distance formula to calculate the distance between the calling and original location
     public double distance(Location l) {
         double xDist = super.getCenterX() - l.getCenterX();
@@ -92,20 +89,20 @@ public class Location extends Circle {
 
     @Override
     public String toString() {
-        return "Location{" + "ID=" + ID + ", color=" + super.getFill() + ", rad=" + super.getRadius() + ", x=" + super.getCenterX() + ", y=" + super.getCenterY() + ", isStart=" + isStart + ", isEnd=" + isEnd + '}';
+        return "Location{" + "ID=" + ID + ", color=" + color + ", rad=" + rad + ", x=" + x + ", y=" + y + ", isStart=" + isStart + ", isEnd=" + isEnd + ", id=" + id + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 11 * hash + this.ID;
-        hash = 11 * hash + Objects.hashCode(this.color);
-        hash = 11 * hash + (int) (Double.doubleToLongBits(this.rad) ^ (Double.doubleToLongBits(this.rad) >>> 32));
-        hash = 11 * hash + (int) (Double.doubleToLongBits(this.x) ^ (Double.doubleToLongBits(this.x) >>> 32));
-        hash = 11 * hash + (int) (Double.doubleToLongBits(this.y) ^ (Double.doubleToLongBits(this.y) >>> 32));
-        hash = 11 * hash + Arrays.deepHashCode(this.coord);
-        hash = 11 * hash + (this.isStart ? 1 : 0);
-        hash = 11 * hash + (this.isEnd ? 1 : 0);
+        int hash = 3;
+        hash = 89 * hash + this.ID;
+        hash = 89 * hash + Objects.hashCode(this.color);
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.rad) ^ (Double.doubleToLongBits(this.rad) >>> 32));
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.x) ^ (Double.doubleToLongBits(this.x) >>> 32));
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.y) ^ (Double.doubleToLongBits(this.y) >>> 32));
+        hash = 89 * hash + (this.isStart ? 1 : 0);
+        hash = 89 * hash + (this.isEnd ? 1 : 0);
+        hash = 89 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -142,11 +139,12 @@ public class Location extends Circle {
         if (!Objects.equals(this.color, other.color)) {
             return false;
         }
-        if (!Arrays.deepEquals(this.coord, other.coord)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+    
     
             
 }
