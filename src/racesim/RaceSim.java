@@ -21,8 +21,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 /**
@@ -36,7 +38,7 @@ public class RaceSim extends Application {
     //the locations the cars will travel around
     private ArrayList<Location> locations;
     //a pane for storing the car's data
-    private CarData carData;
+    private StackPane carData;
     //the pane where the race takes place
     private Venue venue;
     //the color for the locations
@@ -46,18 +48,26 @@ public class RaceSim extends Application {
     //for calculating the dimensions of the bottom pane
     private double btHeight,btWidth;
     private double btnHght;
+    private boolean raceOver;
     //pane for storing the buttons
     private FlowPane bottom;
     //a start button
     private Button start;
     //a reset button
     private Button reset;
+    private String startData,endData,insText;
+    private Text carInfo;
+    private Text instructions;
+    
+    
 //constructor
     public RaceSim(){
         cars = new ArrayList<Car>();
         locations = new ArrayList<Location>();
         //initializing the size of the carData pane
-        carData=new CarData(cars,locations,200,650);
+        carData=new StackPane();
+        carData.setMinWidth(200);
+        carData.setMinHeight(500);
         //initializing the size of the venue pane
         venue = new Venue(locations,cars,800,650);
         //initiazling the bottom pane's dimensions 
@@ -68,10 +78,16 @@ public class RaceSim extends Application {
         bottom.setMinWidth(btWidth);
         locColor=Color.BLACK;
         locRad=5;
+        raceOver=false;
         start=new Button("Start");
         start.setMinHeight(btnHght);
         reset=new Button("Reset");
         reset.setMinHeight(btnHght);
+        carInfo = new Text();
+        instructions = new Text();
+        startData = "";endData="";
+        insText="";
+        instructions.setText(insText);
 
     }
 
@@ -86,6 +102,7 @@ public class RaceSim extends Application {
         root.setRight(carData);
         buildLocations();
         buildCars();
+        buildCarData();
         start.setOnAction((ActionEvent e) -> {
             animateCars();
         });
@@ -141,13 +158,59 @@ public class RaceSim extends Application {
             c.drive();
         }
     }
+    public void buildCarData(){
+        double win=Double.MAX_VALUE;
+        insText+="\nThe cars' information is shown below."
+                + "\nClick start to begin the race!"
+                + "\nClick the reset button if you'd"
+                + "\nlike to begin a new game!";
+        for(Car c: cars){
+            startData+="\nCar ID: " + c.getCarID()
+                    + "\nSpeed: " + c.getSpeed() 
+                    + "\nPath: " + c.pathNames();
+                        win=c.finishTime();
+            if(c.finishTime()<win){
+                win = Math.min(win, c.finishTime());
+            }
+        }
+        for(Car c:cars){
+            if(c.finishTime()==win){
+                endData+="\nCar " +c.getCarID() +" wins!";
+            }
+        }
+        if(!isRaceOver()){
+            carInfo.setText(startData);
+        }else{
+            carInfo.setText(endData);
+        }
+        instructions.setText(insText);
+        carData.getChildren().addAll(instructions,carInfo);
+        carData.setAlignment(instructions,Pos.TOP_CENTER);
+        carData.setAlignment(carInfo,Pos.CENTER);
+    }
+    public boolean isRaceOver(){
+        for(Car c:cars){
+            if(c.isFinished()){
+                raceOver=true;
+            }
+        }
+        return raceOver;
+    }
+    
     public void reset(){
         venue.removeCars(cars);
-        venue.getChildren().removeAll(locations);
+        venue.getChildren().remove(locations);
+        carData.getChildren().removeAll(carInfo,instructions);
+        instructions = new Text();
+        insText="";
+        endData="";
+        startData="";
+        carInfo = new Text();
         cars=new ArrayList<Car>();
         locations=new ArrayList<Location>();
         buildLocations();
         buildCars();
+        buildCarData();
         
     }
     

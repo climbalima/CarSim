@@ -97,7 +97,7 @@ public class Car {
             }
         }
         //the speed is randomized as a number between 1 and 10 to enable a different race time than other cars
-        speed = (int)Math.random()*10+1;
+        speed = (int)(Math.random()*10)+1;
         //the carImage, being used as a node, is given x and y coordinates to make it a viewable object 
         carImage.setX(startLocation.getCenterX());
         carImage.setY(startLocation.getCenterY());
@@ -195,6 +195,13 @@ public class Car {
             pathDist+=path.get(i).distance(path.get(i++));
         }
         return pathDist;
+    }
+    public char pathNames(){
+        char locs=' ';
+        for(Location l:path){
+            locs+=l.getID()+' ';
+        }
+        return locs;
     }
     //Animates the cars driving throughout their path utilizing a Polyline and PathTransition
     //Written by Eliza and Max
