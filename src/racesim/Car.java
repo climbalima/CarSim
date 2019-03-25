@@ -25,7 +25,7 @@ public class Car {
     //for the car's speed
     private int speed;
     //an ID set as a number
-    private int carID;
+    private String carID;
     //the car's path in the race
     private ArrayList<Location> path;
     //for storing the car's start and end locations
@@ -45,7 +45,7 @@ public class Car {
 
     //constructors
     //takes the car's ID, an arraylist of locations for the race path, and a String url for the car's image
-    public Car(int carID,ArrayList<Location> path, Image carVisual) {
+    public Car(String carID,ArrayList<Location> path, Image carVisual) {
         super();
         this.carID = carID;
         this.path = path;
@@ -115,11 +115,11 @@ public class Car {
         this.speed = speed;
     }
 
-    public int getCarID() {
+    public String getCarID() {
         return carID;
     }
 
-    public void setCarID(int carID) {
+    public void setCarID(String carID) {
         this.carID = carID;
     }
 
@@ -196,12 +196,12 @@ public class Car {
         }
         return pathDist;
     }
-    public String pathNames(){
-        String locs="";
-        for(Location l:path){
-            locs+=l.getID()+" ";
+    public String[] pathNames(){
+        String[] pathNames = new String[pathSize];
+        for(int i=0;i<pathSize;i++){
+            pathNames[i]=path.get(i).getID()+"";
         }
-        return locs;
+        return pathNames;
     }
     //Animates the cars driving throughout their path utilizing a Polyline and PathTransition
     //Written by Eliza and Max
@@ -220,22 +220,24 @@ public class Car {
         setFinished();
     }
     //hashCode,equals and toString methods
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 13 * hash + this.speed;
-        hash = 13 * hash + this.carID;
-        hash = 13 * hash + Objects.hashCode(this.path);
-        hash = 13 * hash + Objects.hashCode(this.startLocation);
-        hash = 13 * hash + Objects.hashCode(this.endLocation);
-        hash = 13 * hash + (this.finished ? 1 : 0);
-        hash = 13 * hash + this.pathSize;
-        hash = 13 * hash + (int) (Double.doubleToLongBits(this.pathDist) ^ (Double.doubleToLongBits(this.pathDist) >>> 32));
-        hash = 13 * hash + Arrays.deepHashCode(this.points);
-        hash = 13 * hash + Objects.hashCode(this.carVisual);
-        hash = 13 * hash + Objects.hashCode(this.carImage);
+        int hash = 5;
+        hash = 73 * hash + this.speed;
+        hash = 73 * hash + Objects.hashCode(this.carID);
+        hash = 73 * hash + Objects.hashCode(this.path);
+        hash = 73 * hash + Objects.hashCode(this.startLocation);
+        hash = 73 * hash + Objects.hashCode(this.endLocation);
+        hash = 73 * hash + (this.finished ? 1 : 0);
+        hash = 73 * hash + this.pathSize;
+        hash = 73 * hash + (int) (Double.doubleToLongBits(this.pathDist) ^ (Double.doubleToLongBits(this.pathDist) >>> 32));
+        hash = 73 * hash + Arrays.deepHashCode(this.points);
+        hash = 73 * hash + Objects.hashCode(this.carVisual);
+        hash = 73 * hash + Objects.hashCode(this.carImage);
         return hash;
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -252,7 +254,7 @@ public class Car {
         if (this.speed != other.speed) {
             return false;
         }
-        if (this.carID != other.carID) {
+        if (this.carID == null ? other.carID != null : !this.carID.equals(other.carID)) {
             return false;
         }
         if (this.finished != other.finished) {

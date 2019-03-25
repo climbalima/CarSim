@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 /**
  * 
- * @author Eliza Doering
+ * @author Miguel Oyler
  */
 public class Venue extends Pane{
     private ArrayList<Location> locations;

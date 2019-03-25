@@ -125,6 +125,7 @@ public class RaceSim extends Application {
         locations.add(new Location('D',570,325,locColor,locRad));
         for(int i=0;i<locations.size();i++){
             venue.getChildren().add(locations.get(i));
+            venue.getChildren().add(locations.get(i).Id());
         }
     }
 
@@ -139,18 +140,11 @@ public class RaceSim extends Application {
         return list;
     }
     
-    public Location[] stringToLocationArray(String path, HashMap<Character, Location> locationMap) {
-        Location[] locationArr = new Location[4];
-        for (int i = 0; i < 4; i++) {
-            locationArr[i] = locationMap.get(path.charAt(i));
-        }
-        return locationArr;
-    }
     public void buildCars(){
-        cars.add(new Car(1,generatePath(),new Image("http://aux.iconspalace.com/uploads/16277796191148912584.png")));
-        cars.add(new Car(2,generatePath(),new Image("http://aux.iconspalace.com/uploads/15211618611594226778.png")));
-        cars.add(new Car(3,generatePath(),new Image("http://aux.iconspalace.com/uploads/12939079871163965781.png")));
-        cars.add(new Car(4,generatePath(),new Image("http://aux.iconspalace.com/uploads/11489030631764325402.png")));
+        cars.add(new Car("Flo",generatePath(),new Image("http://aux.iconspalace.com/uploads/16277796191148912584.png")));
+        cars.add(new Car("Lighting McQueen",generatePath(),new Image("http://aux.iconspalace.com/uploads/15211618611594226778.png")));
+        cars.add(new Car("Mater",generatePath(),new Image("http://aux.iconspalace.com/uploads/12939079871163965781.png")));
+        cars.add(new Car("Ramone",generatePath(),new Image("http://aux.iconspalace.com/uploads/11489030631764325402.png")));
         venue.addCars(cars);
     }
     public void animateCars(){
@@ -158,6 +152,7 @@ public class RaceSim extends Application {
             c.drive();
         }
     }
+    //Written by Miguel
     public void buildCarData(){
         double win=Double.MAX_VALUE;
         insText+="\nThe cars' information is shown below."
@@ -167,7 +162,7 @@ public class RaceSim extends Application {
         for(Car c: cars){
             startData+="\nCar ID: " + c.getCarID()
                     + "\nSpeed: " + c.getSpeed() 
-                    + "\nPath: " + c.pathNames();
+                    + "\nPath: " + Arrays.deepToString(c.pathNames());
                         win=c.finishTime();
             if(c.finishTime()<win){
                 win = Math.min(win, c.finishTime());
@@ -191,10 +186,10 @@ public class RaceSim extends Application {
     public boolean isRaceOver(){
         for(Car c:cars){
             if(c.isFinished()){
-                raceOver=true;
+                return true;
             }
         }
-        return raceOver;
+        return false;
     }
     
     public void reset(){

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 /**
  *This class creates a location 
@@ -26,6 +27,7 @@ public class Location extends Circle {
     private boolean isStart;
     //used to determine if it is already being used as an end point
     private boolean isEnd;
+    private Text id;
 //constructors 
     public Location(char ID, double x, double y,Color color,double rad) {
         super(x,y,rad,color);
@@ -33,6 +35,11 @@ public class Location extends Circle {
         //initially locations are neither start nor end points
         isStart=false;
         isEnd=false;
+        id=new Text();
+        String IDstr = ID+"";
+        id.setText(IDstr);
+        id.setX(x+5);
+        id.setY(y+5);
     }
     public Location(){
         super();
@@ -65,6 +72,14 @@ public class Location extends Circle {
 
     public Double[] getCoord() {
         return coord;
+    }
+
+    public Text Id() {
+        return id;
+    }
+
+    public void setId(Text id) {
+        this.id = id;
     }
     
     //uses a call to super and the distance formula to calculate the distance between the calling and original location
