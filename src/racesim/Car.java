@@ -196,9 +196,12 @@ public class Car {
         }
         return pathDist;
     }
+    //a String Array is used to store just the names of the path locations
     public String[] pathNames(){
         String[] pathNames = new String[pathSize];
+        //in a loop to ensure the correct order is displayed
         for(int i=0;i<pathSize;i++){
+            //casting char to String
             pathNames[i]=path.get(i).getID()+"";
         }
         return pathNames;
@@ -217,7 +220,6 @@ public class Car {
         pt.setNode(carImage);
         pt.setPath(polyLine);
         pt.playFromStart();
-        setFinished();
     }
     //hashCode,equals and toString methods
 
