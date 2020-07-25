@@ -6,9 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 import javafx.animation.TranslateTransition;
+import javafx.scene.paint.Color;
 import javafx.util.Duration; 
 import javafx.scene.paint.Color;
-
 
 public class Car {
 
